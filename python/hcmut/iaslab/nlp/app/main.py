@@ -1,5 +1,6 @@
 # python/hcmut/iaslab/nlp/app/main.py
 import os
+import re
 from .grammar import CFGrammar
 from .earley_parser import EarleyParser
 
@@ -42,7 +43,7 @@ def load_grammar_with_lexicons(grammar_file: str,
     return grammar
 
 def simple_tokenizer(sentence: str) -> list:
-    return sentence.lower().split()
+    return re.findall(r'\w+|\S', sentence.lower())
 
 def run_parser_task():
     grammar_file = os.path.join(DATA_DIR, 'grammar.txt')
@@ -63,7 +64,7 @@ def run_parser_task():
             f.write("có bún chả không\n")
             f.write("câu này sai ngữ pháp\n")
 
-    print(f"\n--- Bắt đầu phân tích (Task 2.3) ---")
+    print(f"\n--- Bắt đầu phân tích ---")
     print(f"Input: {input_file}")
     print(f"Output: {output_file}")
     

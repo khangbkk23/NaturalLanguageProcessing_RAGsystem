@@ -1,3 +1,6 @@
 (Sentences (Sentence (Subject (NounPhrase (NounPhrase_ (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbPhrase_ (Verb (OrderVerb 'muốn' 'đặt')) (NounPhrase (NounPhrase_ (Quantifier (NumberDigit '2')) (Unit (_DON_VI_ 'phần')) (Noun (FoodName (_MON_AN_ 'phở' 'bò'))))))))))
 (Sentences (Sentence (Predicate (VerbPhrase (VerbPhrase_ (Verb (QueryVerb 'có')) (NounPhrase (NounPhrase_ (Noun (FoodName (_MON_AN_ 'bún' 'chả'))))))))) (Wh 'không'))
+(Sentences (Sentence (Predicate (VerbPhrase (VerbPhrase_ (Verb (CancelVerb 'hủy')) (NounPhrase (NounPhrase_ (Noun (OrderRelated 'đơn' 'hàng'))) (PrepositionAfter 'này')))))))
 ()
+()
+(Sentences (Sentence (Subject (NounPhrase (NounPhrase_ (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbPhrase_ (AdverbBefore_Verb 'đã') (Verb (OrderVerb 'đặt')) (NounPhrase (NounPhrase_ (Noun (OrderRelated 'món'))) (PrepositionAfter 'này'))) (AdverbAfter_Verb 'rồi')))))
