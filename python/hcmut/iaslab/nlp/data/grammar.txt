@@ -13,8 +13,7 @@ NounPhrase_ -> Quantifier Noun | Quantifier Unit Noun | PrepositionBefore Noun |
 ### Cụm động từ
 
 VerbPhrase -> VerbPhrase_ | VerbPhrase_ AdverbAfter_Verb
-VerbPhrase_ -> Verb Noun Adjective | Verb AdjectivePhrase | Verb | Verb NounPhrase | AdverbBefore_Verb Verb | AdverbBefore_Verb Verb NounPhrase
-
+VerbPhrase_ -> Verb Noun Adjective | Verb AdjectivePhrase | Verb | Verb NounPhrase | AdverbBefore_Verb Verb | AdverbBefore_Verb Verb NounPhrase | **Verb NounPhrase DeliveryTimePhrase** | **AdverbBefore_Verb Verb NounPhrase DeliveryTimePhrase**
 ### Cụm tính từ
 
 AdjectivePhrase -> Adjective | Adjective AdverbAfter_Adjective | AdverbBefore_Adjective Adjective
@@ -80,6 +79,7 @@ Preposition -> PrepositionBefore | PrepositionAfter | PrepositionPlace
 PrepositionBefore -> những | các | cái
 PrepositionAfter -> này | ấy | kia
 PrepositionPlace -> trong | trên | ở | vào | ra
+DeliveryTimePhrase -> giao lúc TimeExpression
 
 ### Wh-word
 Wh -> không | hả | sao | vậy | à
