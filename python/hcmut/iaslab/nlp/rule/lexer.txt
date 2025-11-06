@@ -1,0 +1,78 @@
+# LEXER RULES - Định nghĩa tokens cho hệ thống đặt món ăn
+# Format: TOKEN_TYPE: value1, value2, value3, ...
+
+# ĐỘNG TỪ ĐẶT MÓN
+ORDER_VERB: tôi muốn đặt, cho tôi, tôi đặt, đặt cho tôi, mình muốn đặt, mình đặt
+
+# ĐỘNG TỪ HỎI
+QUERY_MENU: có những món nào, menu có gì, có món gì, cho tôi xem menu, xem menu, menu gồm những gì
+QUERY_PRICE: giá bao nhiêu, bao nhiêu tiền, giá là bao nhiêu
+QUERY_AVAIL: có không, còn không, hết chưa, có món
+QUERY_STATUS: tôi đã đặt những món gì, tôi đặt món gì rồi, đơn hàng của tôi có gì, xem đơn hàng, kiểm tra đơn hàng
+
+# ĐỘNG TỪ THÊM/SỬA
+ADD_VERB: thêm, cho thêm, thêm vào đơn, cho tôi thêm, thêm nữa
+MODIFY_VERB: đổi, sửa, thay đổi số lượng
+
+# ĐỘNG TỪ HỦY
+CANCEL_VERB: hủy, bỏ, xóa, tôi muốn hủy, tôi muốn bỏ, không lấy
+
+# TỪ LIÊN KẾT GIAO HÀNG
+DELIVERY_PREP: giao hàng lúc, giao lúc, giao vào lúc, giao vào, mang đến lúc, đem đến lúc, giao hàng vào
+
+# SỐ LƯỢNG (NUMBER)
+NUMBER_DIGIT: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+NUMBER_WORD: một, hai, ba, bốn, năm, sáu, bảy, tám, chín, mười
+NUMBER_VAGUE: mấy, vài, ít, nhiều
+
+# ĐỠN VỊ (UNIT)
+UNIT: phần, ly, cốc, tô, bát, dĩa, suất, chai, lon, hộp, gói, kg, kilogram
+
+# TÊN MÓN ĂN (FOOD_NAME)
+# Món Việt Nam
+FOOD_PHO: phở bò, phở gà
+FOOD_BUN: bún chả, bún bò, bún riêu, bún đậu
+FOOD_COM: cơm gà, cơm sườn, cơm chiên, cơm tấm
+FOOD_BANH: bánh mì, bánh xèo, bánh cuốn, bánh flan
+FOOD_OTHER_VN: hủ tiếu, mì xào, mì gói, canh chua, lẩu, bò kho, xôi, chè
+
+# Đồ uống
+DRINK_HOT: trà sữa, cà phê
+DRINK_COLD: sinh tố, nước cam, nước chanh, coca, pepsi, nước suối
+DRINK_OTHER: trà đá, trà nóng
+
+# Món chiên/nướng
+FOOD_FRIED: gà rán, nem rán, chả giò, gỏi cuốn
+
+# Món quốc tế
+FOOD_WESTERN: pizza, burger, mì ý, gà quay, salad, sandwich
+
+# TÙY CHỌN (OPTION)
+# Đường
+OPT_SUGAR: ít đường, nhiều đường, không đường
+# Nhiệt độ
+OPT_TEMP: nóng, nguội, ấm, mát
+# Đá
+OPT_ICE: đá, không đá, ít đá
+# Độ cay
+OPT_SPICY: cay, không cay, ít cay, nhiều cay, siêu cay
+# Kích thước
+OPT_SIZE: size L, size M, size S, to, vừa, nhỏ
+# Topping
+OPT_TOPPING: có hành, không hành, thêm rau, ít rau, không rau, thêm thịt
+# Phục vụ
+OPT_SERVICE: takeaway, mang đi, ăn tại chỗ
+
+# THỜI GIAN
+TIME_HOUR: giờ, h
+TIME_MINUTE: phút
+TIME_SPECIAL: rưỡi
+
+# TỪ PHỤ (FILLER WORDS)
+FILLER_END: nhé, nha, ạ, vậy
+FILLER_CONN: và, với, cùng
+FILLER_PREP: vào, trong, ra, khỏi, của, là
+
+# MARKER WORDS
+MARKER_QUESTION: không
+MARKER_ORDER: đơn, đơn hàng

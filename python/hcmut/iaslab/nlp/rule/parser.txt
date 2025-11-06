@@ -1,0 +1,159 @@
+# ============================================================================
+# CẤU TRÚC CÂU TỔNG QUÁT
+# ============================================================================
+Sentences -> Sentence | Sentence Wh
+Sentence -> Predicate | Subject Predicate | TimeAdverb Subject Predicate | Subject TimeAdverb Predicate
+Subject -> NounPhrase
+Predicate -> VerbPhrase | AdjectivePhrase
+
+# ============================================================================
+# NOUN PHRASE (Cụm danh từ)
+# ============================================================================
+NounPhrase -> NounPhrase_ PrepositionAfter | NounPhrase_
+NounPhrase_ -> Quantifier Noun | Quantifier Unit Noun | Unit Noun
+NounPhrase_ -> PrepositionBefore Noun | ProperNoun | Pronoun | Noun
+NounPhrase_ -> Noun PrepositionalPhrase | Noun OptionList
+
+# ============================================================================
+# VERB PHRASE (Cụm động từ)
+# ============================================================================
+VerbPhrase -> VerbPhrase_ | VerbPhrase_ AdverbAfter_Verb
+VerbPhrase_ -> Verb | Verb NounPhrase | Verb NounPhrase NounPhrase
+VerbPhrase_ -> AdverbBefore_Verb Verb | AdverbBefore_Verb Verb NounPhrase
+VerbPhrase_ -> Verb Adjective | Verb AdjectivePhrase
+
+# ============================================================================
+# ADJECTIVE PHRASE (Cụm tính từ)
+# ============================================================================
+AdjectivePhrase -> Adjective | Adjective AdverbAfter_Adjective
+AdjectivePhrase -> AdverbBefore_Adjective Adjective
+
+# ============================================================================
+# PREPOSITIONAL PHRASE (Cụm giới từ)
+# ============================================================================
+PrepositionalPhrase -> Preposition NounPhrase | Preposition Noun
+PrepositionalPhrase -> Preposition TimeExpression
+
+# ============================================================================
+# TỪ LOẠI CƠ BẢN
+# ============================================================================
+
+# ĐỘNG TỪ (Verbs)
+Verb -> OrderVerb | QueryVerb | ModifyVerb | CancelVerb | DeliveryVerb
+OrderVerb -> đặt | muốn | yêu cầu
+QueryVerb -> có | xem | kiểm tra | hỏi
+ModifyVerb -> thêm | sửa | đổi | thay đổi
+CancelVerb -> hủy | bỏ | xóa
+DeliveryVerb -> giao | mang | đem
+
+# TÍNH TỪ (Adjectives)
+Adjective -> FoodAdjective | GeneralAdjective
+FoodAdjective -> ngon | tươi | nóng | nguội | cay | ngọt | mặn | chua
+GeneralAdjective -> tốt | đẹp | nhanh | chậm | đắt | rẻ
+
+# DANH TỪ (Nouns) - TÊN MÓN ĂN
+Noun -> FoodName | OrderNoun | TimeNoun | QuantityNoun
+FoodName -> PhoDish | BunDish | ComDish | BanhDish | DrinkName | FriedFood | WesternFood
+OrderNoun -> đơn | đơn hàng | menu | món | thực đơn | order
+TimeNoun -> giờ | phút | sáng | trưa | chiều | tối
+QuantityNoun -> phần | suất | người
+
+# Món phở
+PhoDish -> phở bò | phở gà
+
+# Món bún
+BunDish -> bún chả | bún bò | bún riêu | bún đậu
+
+# Món cơm
+ComDish -> cơm gà | cơm sườn | cơm chiên | cơm tấm
+
+# Món bánh
+BanhDish -> bánh mì | bánh xèo | bánh cuốn | bánh flan
+
+# Đồ uống
+DrinkName -> trà sữa | cà phê | sinh tố | nước cam | nước chanh | coca | pepsi
+
+# Món chiên/rán
+FriedFood -> gà rán | nem rán | chả giò | gỏi cuốn
+
+# Món Tây
+WesternFood -> pizza | burger | mì ý | salad | sandwich
+
+# DANH TỪ RIÊNG (Proper Nouns) - TÊN QUÁN/ĐỊA ĐIỂM
+ProperNoun -> Nhà Hàng ABC | Quán Phở Hà Nội | Bún Chả Hương Liên
+ProperNoun -> Quán Cơm | Quán Cà Phê
+
+# ĐẠI TỪ (Pronouns)
+Pronoun -> tôi | mình | anh | chị | em | chúng tôi | chúng mình
+
+# ============================================================================
+# SỐ LƯỢNG VÀ ĐƠN VỊ
+# ============================================================================
+
+# SỐ LƯỢNG (Quantifiers)
+Quantifier -> NumberDigit | NumberWord | NumberVague
+NumberDigit -> 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+NumberWord -> một | hai | ba | bốn | năm | sáu | bảy | tám | chín | mười
+NumberVague -> mấy | vài | ít | nhiều | một vài
+
+# ĐƠN VỊ (Units)
+Unit -> phần | ly | cốc | tô | bát | dĩa | suất | chai | lon | hộp | gói | kg
+
+# ============================================================================
+# TÙY CHỌN MÓN ĂN
+# ============================================================================
+OptionList -> Option | Option OptionList | Option và Option
+Option -> SugarOption | IceOption | SpicyOption | TempOption | SizeOption | ToppingOption
+
+SugarOption -> ít đường | nhiều đường | không đường
+IceOption -> đá | không đá | ít đá
+SpicyOption -> cay | không cay | ít cay | nhiều cay | siêu cay
+TempOption -> nóng | nguội | ấm | mát
+SizeOption -> size L | size M | size S | to | vừa | nhỏ
+ToppingOption -> có hành | không hành | thêm rau | ít rau | không rau
+
+# ============================================================================
+# TRẠNG TỪ (Adverbs)
+# ============================================================================
+
+# Trạng từ thời gian
+TimeAdverb -> TimeExpression | TimePreposition TimeExpression
+TimeExpression -> hôm nay | hôm qua | ngày mai | bây giờ | lúc này
+TimeExpression -> TimeNumber giờ | TimeNumber giờ TimeNumber phút
+TimeExpression -> TimeNumber h TimeNumber | TimeNumber giờ rưỡi
+
+TimeNumber -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+TimeNumber -> 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 30 | 45
+
+TimePreposition -> lúc | vào | vào lúc
+
+# Trạng từ trước động từ
+AdverbBefore_Verb -> đã | cũng | chưa | đừng | đang | không | sẽ | muốn
+
+# Trạng từ sau động từ
+AdverbAfter_Verb -> rồi | luôn | ngay | nha | nhé | ạ
+
+# Trạng từ trước tính từ
+AdverbBefore_Adjective -> rất | cũng | không | vô cùng | khá | hơi | quá
+
+# Trạng từ sau tính từ
+AdverbAfter_Adjective -> lắm | quá | quá đi | lắm luôn
+
+# ============================================================================
+# GIỚI TỪ (Prepositions)
+# ============================================================================
+Preposition -> PrepositionBefore | PrepositionAfter | PrepositionPlace
+
+PrepositionBefore -> những | các | cái | con | chiếc
+PrepositionAfter -> này | ấy | kia | đó
+PrepositionPlace -> trong | trên | dưới | ở | tại | vào | ra | khỏi
+
+# ============================================================================
+# TỪ NGHI VẤN (Question Words)
+# ============================================================================
+Wh -> không | hả | sao | chăng | vậy | à | chứ
+
+# ============================================================================
+# LIÊN TỪ (Conjunctions)
+# ============================================================================
+Conjunction -> và | với | cùng | hoặc | hay

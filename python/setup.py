@@ -11,7 +11,7 @@ with open('requirements.txt') as fin:
 
 setuptools.setup(
 
-    name="NAME",  # Replace with your username
+    name="Khang Bui Tran Duy",  # Replace with your username
 
     version="1.0.0",
 
