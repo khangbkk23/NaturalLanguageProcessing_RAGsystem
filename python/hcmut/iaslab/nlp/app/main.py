@@ -1,70 +1,40 @@
 # python/hcmut/iaslab/nlp/app/main.py
 import os
-import re
-from .grammar import CFGrammar
+import sys
 from .earley_parser import EarleyParser
-
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
-NLP_DIR = os.path.dirname(APP_DIR)
-DATA_DIR = os.path.join(NLP_DIR, 'data')
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(NLP_DIR)))
-OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'output')
-
-LEXICON_CONFIG = {
-    '_MON_AN_': os.path.join(DATA_DIR, 'dishes.txt'),
-    '_DON_VI_': os.path.join(DATA_DIR, 'units.txt'),
-    '_TUY_CHON_MON_': os.path.join(DATA_DIR, 'food_options.txt'),
-    '_TEN_QUAN_': os.path.join(DATA_DIR, 'restaurants.txt')
-}
-
-def load_grammar_with_lexicons(grammar_file: str, 
-                               lexicon_config: dict) -> CFGrammar:
-    grammar = CFGrammar(grammar_file)
-    print("--- Bắt đầu nạp văn phạm ---")
-    for non_terminal, lexicon_file in lexicon_config.items():
-        print(f"[Loader] Nạp từ vựng cho '{non_terminal}' từ {lexicon_file}...")
-        try:
-            with open(lexicon_file, 'r', encoding='utf-8') as f:
-                count = 0
-                for line in f:
-                    item = line.strip().lower()
-                    if item:
-                        rule_str = f"{non_terminal} -> {item}"
-                        grammar.add_rule(rule_str)
-                        count += 1
-                print(f"  -> Đã thêm {count} quy tắc cho {non_terminal}")
-        except FileNotFoundError:
-            print(f"[LỖI] Không tìm thấy file {lexicon_file}")
-        except Exception as e:
-            print(f"[LỖI] Không thể đọc file {lexicon_file}: {e}")
-            
-    print(grammar.get_stats())
-    print("--- Nạp văn phạm hoàn tất ---")
-    return grammar
-
-def simple_tokenizer(sentence: str) -> list:
-    return re.findall(r'\w+|\S', sentence.lower())
+from .utils import (
+    load_grammar_with_lexicons, 
+    simple_tokenizer, 
+    LEXICON_CONFIG, 
+    DATA_DIR, 
+    OUTPUT_DIR,
+    INPUT_DIR
+)
 
 def run_parser_task():
+    # 1. Nạp văn phạm
     grammar_file = os.path.join(DATA_DIR, 'grammar.txt')
     grammar = load_grammar_with_lexicons(grammar_file, LEXICON_CONFIG)
     
+    # 2. Khởi tạo Parser
     parser = EarleyParser(grammar)
     
-    input_file = os.path.join(PROJECT_ROOT, 'input', 'sentences.txt')
+    # 3. Chuẩn bị file input/output
+    input_file = os.path.join(INPUT_DIR, 'sentences.txt')
     output_file = os.path.join(OUTPUT_DIR, 'parse-results.txt')
     
-    os.makedirs(os.path.dirname(input_file), exist_ok=True)
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    os.makedirs(INPUT_DIR, exist_ok=True)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     
     if not os.path.exists(input_file):
         print(f"Tạo file input mẫu: {input_file}")
         with open(input_file, 'w', encoding='utf-8') as f:
             f.write("tôi muốn đặt 2 phần phở bò\n")
             f.write("có bún chả không\n")
-            f.write("câu này sai ngữ pháp\n")
+            f.write("giao lúc 7 giờ 30 phút\n")
+            f.write("xem menu của KelvinCook\n")
 
-    print(f"\n--- Bắt đầu phân tích ---")
+    print(f"\n--- Bắt đầu phân tích---")
     print(f"Input: {input_file}")
     print(f"Output: {output_file}")
     
@@ -90,9 +60,11 @@ def run_parser_task():
                 print("Kết quả: ()")
                 results.append("()")
 
+    # 4. Ghi kết quả
     with open(output_file, 'w', encoding='utf-8') as f_out:
         for res in results:
             f_out.write(res + "\n")
+
 
 if __name__ == "__main__":
     run_parser_task()
