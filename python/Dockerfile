@@ -65,32 +65,30 @@ LABEL author = "Hung Vo"
 LABEL contact.gmail = "thanhhungqb@gmail.com"
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 ENV TZ=Asia/Ho_Chi_Minh
 
-# install neccessary apt libraries here
-# use --no-install-recommends in most case
 RUN apt-get update && apt-get -y --no-install-recommends install locales && \
-	apt-get -y --no-install-recommends install ffmpeg && \
-	locale-gen en_US.UTF-8 && \
-	rm -rf /var/lib/apt/lists/*
+    apt-get -y --no-install-recommends install ffmpeg && \
+    locale-gen en_US.UTF-8 && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
-	
+    
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-
-# Make sure we use the virtualenv from builder
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY . /src/
 
-EXPOSE 5000
+COPY . /src/
+ENV PYTHONPATH="/src/python"
 
 WORKDIR /src/
 
-CMD ["python3", "-m", "hcommon.cli", "run", "--json_conf", "conf/app.json"]
+EXPOSE 5000
+
+
+CMD ["python3", "-m", "hcommon.cli", "run", "--json_conf", "python/conf/app.json"]

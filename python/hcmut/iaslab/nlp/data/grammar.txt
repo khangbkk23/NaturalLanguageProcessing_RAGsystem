@@ -26,64 +26,63 @@ PrepositionalPhrase -> Preposition | Preposition Noun | Preposition NounPhrase
 ### Cụm động từ
 
 Verb -> OrderVerb | QueryVerb | ModifyVerb | CancelVerb
-OrderVerb -> 'đặt' | 'muốn đặt' | 'yêu cầu'
-QueryVerb -> 'có' | 'xem' | 'kiểm tra' | 'hỏi'
-ModifyVerb -> 'thêm' | 'sửa' | 'đổi'
-CancelVerb -> 'hủy' | 'bỏ' | 'xóa'
+OrderVerb -> đặt | muốn đặt | yêu cầu
+QueryVerb -> có | xem | kiểm tra | hỏi
+ModifyVerb -> thêm | sửa | đổi
+CancelVerb -> hủy | bỏ | xóa
 
 ### Tính từ
 
 Adjective -> FoodAdjective | PriceAdjective
-FoodAdjective -> '_TUY_CHON_MON_'
-PriceAdjective -> 'đắt' | 'rẻ' | 'mắc' | 'phải chăng'
+FoodAdjective -> _TUY_CHON_MON_
+PriceAdjective -> đắt | rẻ | mắc | phải chăng
 
 ### Danh từ
 
 Noun -> FoodName | OrderRelated | TimeRelated
-FoodName -> '_MON_AN_'
-OrderRelated -> 'món' | 'đơn' | 'đơn hàng' | 'menu' | 'thực đơn'
-TimeRelated -> 'giờ' | 'phút'
+FoodName -> _MON_AN_
+OrderRelated -> món | đơn | đơn hàng | menu | thực đơn
+TimeRelated -> giờ | phút
 
 ### Danh từ riêng
 
-ProperNoun -> '_TEN_QUAN_'
+ProperNoun -> _TEN_QUAN_
 
 ### Đại từ
 
-Pronoun -> 'tôi' | 'mình' | 'anh' | 'chị' | 'em' | 'chúng tôi'
+Pronoun -> tôi | mình | anh | chị | em | chúng tôi
 
 ### Lượng từ
 
 Quantifier -> NumberDigit | NumberWord | NumberVague
-NumberDigit -> '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10'
-NumberWord -> 'một' | 'hai' | 'ba' | 'bốn' | 'năm' | 'sáu' | 'bảy' | 'tám' | 'chín' | 'mười'
-NumberVague -> 'mấy' | 'vài' | 'ít' | 'nhiều'
+NumberDigit -> 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+NumberWord -> một | hai | ba | bốn | năm | sáu | bảy | tám | chín | mười
+NumberVague -> mấy | vài | ít | nhiều
 
 ### Đơn vị
 
-Unit -> '_DON_VI_'
+Unit -> _DON_VI_
 
 ### Trạng từ
 
 TimeAdverb -> TimeExpression
-TimeExpression -> 'hôm nay' | 'hôm qua' | 'ngày mai' | 'bây giờ' | TimeNumber 'giờ' | TimeNumber 'giờ' TimeNumber 'phút'
-TimeNumber -> '6' | '7' | '8' | '9' | '10' | '11' | '12' | '13' | '14' | '15' | '16' | '17' | '18' | '19' | '20' | '21' | '22' | '30' | '45'
+TimeExpression -> hôm nay | hôm qua | ngày mai | bây giờ | TimeNumber giờ | TimeNumber giờ TimeNumber phút
+TimeNumber -> 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 30 | 45
 
-AdverbBefore_Verb -> 'đã' | 'cũng' | 'chưa' | 'đang' | 'không' | 'muốn'
-AdverbAfter_Verb -> 'rồi' | 'nhé' | 'nha' | 'ạ'
-AdverbBefore_Adjective -> 'rất' | 'cũng' | 'không' | 'khá' | 'hơi'
-AdvberbAfter_Adjective -> 'lắm' | 'quá'
-AdverbAfter_Adjective -> 'lắm' | 'quá'
+AdverbBefore_Verb -> đã | cũng | chưa | đang | không | muốn
+AdverbAfter_Verb -> rồi | nhé | nha | ạ
+AdverbBefore_Adjective -> rất | cũng | không | khá | hơi
+AdverbAfter_Adjective -> lắm | quá
 
 ### Giới từ
 
 Preposition -> PrepositionBefore | PrepositionAfter | PrepositionPlace
-PrepositionBefore -> 'những' | 'các' | 'cái'
-PrepositionAfter -> 'này' | 'ấy' | 'kia'
-PrepositionPlace -> 'trong' | 'trên' | 'ở' | 'vào' | 'ra'
+PrepositionBefore -> những | các | cái
+PrepositionAfter -> này | ấy | kia
+PrepositionPlace -> trong | trên | ở | vào | ra
 
 ### Wh-word
-Wh -> 'không' | 'hả' | 'sao' | 'vậy' | 'à'
+Wh -> không | hả | sao | vậy | à
 
 ### Liên từ
-Conjunction -> 'và' | 'với' | 'cùng' | 'hoặc'
+Conjunction -> và | với | cùng | hoặc
