@@ -4,8 +4,6 @@ from typing import Dict, List, Set
 
 
 class CFGrammar:
-    """Context-Free Grammar cho hệ thống đặt món"""
-    
     def __init__(self, grammar_file: str = None):
         self.rules = defaultdict(list)
         self.terminals = set()

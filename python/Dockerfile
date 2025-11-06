@@ -8,7 +8,7 @@
 # thanhhungqb/python-builder:ver
 # =====================================================================
 
-FROM python:3.8-slim-buster as python-builder
+FROM python:3.8-slim-bullseye as python-builder
 
 LABEL author = "Hung Vo" 
 LABEL contact.gmail = "thanhhungqb@gmail.com"
@@ -60,7 +60,7 @@ RUN python3 -m pip install --upgrade pip && \
 # keep it simple and clean
 # =====================================================================
 
-FROM python:3.8-slim-buster as runtime
+FROM python:3.8-slim-bullseye as runtime
 LABEL author = "Hung Vo" 
 LABEL contact.gmail = "thanhhungqb@gmail.com"
 
@@ -91,4 +91,4 @@ WORKDIR /src/
 EXPOSE 5000
 
 
-CMD ["python3", "-m", "hcommon.cli", "run", "--json_conf", "python/conf/app.json"]
+CMD ["python3", "-m", "hcmut.iaslab.nlp.app.main"]

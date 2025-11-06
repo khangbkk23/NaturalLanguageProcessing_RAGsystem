@@ -1,0 +1,3 @@
+(Sentences (Sentence (Subject (NounPhrase (NounPhrase_ (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbPhrase_ (Verb (OrderVerb 'muốn' 'đặt')) (NounPhrase (NounPhrase_ (Quantifier (NumberDigit '2')) (Unit (_DON_VI_ 'phần')) (Noun (FoodName (_MON_AN_ 'phở' 'bò'))))))))))
+(Sentences (Sentence (Predicate (VerbPhrase (VerbPhrase_ (Verb (QueryVerb 'có')) (NounPhrase (NounPhrase_ (Noun (FoodName (_MON_AN_ 'bún' 'chả'))))))))) (Wh 'không'))
+()
