@@ -9,3 +9,9 @@ chai
 hộp
 chén
 đĩa
+phần nhỏ
+phần lớn
+ly nhỏ
+ly lớn
+phần trẻ em
+phần đặc biệt

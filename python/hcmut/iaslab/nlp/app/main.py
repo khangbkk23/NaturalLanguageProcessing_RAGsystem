@@ -27,7 +27,7 @@ def load_grammar_with_lexicons(grammar_file: str,
             with open(lexicon_file, 'r', encoding='utf-8') as f:
                 count = 0
                 for line in f:
-                    item = line.strip()
+                    item = line.strip().lower()
                     if item:
                         rule_str = f"{non_terminal} -> {item}"
                         grammar.add_rule(rule_str)
