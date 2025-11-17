@@ -84,7 +84,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 
 COPY . /src/
-ENV PYTHONPATH="/src/python"
+ENV PYTHONPATH="/src"
 
 WORKDIR /src/
 

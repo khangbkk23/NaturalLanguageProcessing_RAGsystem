@@ -1,47 +1,61 @@
 #!/bin/bash
 
-# util to test, make submit file
-# require:
-#		docker
-#		
-# usage:
-#		./util.sh test
-#		./util.sh submit
-
-# please provide info
 STUDENT_ID="2311402"
-
-# python or java
+IMAGE_NAME="nlp_assignment"
 PROJ_P_LANG="python"
 
-# DO NOT CHANGE BELOW VARIABLES
-S_OUT="`pwd`/$STUDENT_ID/output"
-S_IN="`pwd`/input"
+BASE_DIR=$(pwd)
+S_OUT="$BASE_DIR/$STUDENT_ID/output"
+S_IN="$BASE_DIR/input"
 
-# default: do nothing
-function run_ { echo "Please give either command submit/test" ; }
+function run_ { echo "Please give either command submit/test/generate" ; }
 
 function run_test {
-	# run and make output, similar when grading your assignment
-	# make sure ./input folder exits
-	# check results in $S_OUT
-	echo "run test your assignment"
-	
-	cur=`pwd`
-	cd $PROJ_P_LANG
-	docker build --network=host -t nlp222 .
-	docker run --rm -v $S_OUT:/nlp/output -v $S_IN:/nlp/input nlp222
-	cd $cur
-	echo "please check output in $S_OUT"
+    echo "--- RUNNING PARSER TASK ---"
+    mkdir -p "$S_OUT"
+    
+    cur=`pwd`
+    
+    cd $PROJ_P_LANG
+    docker build -t $IMAGE_NAME .
+    
+    docker run --rm -v "$S_OUT":/src/output -v "$S_IN":/src/input $IMAGE_NAME
+    
+    cd $cur
+    echo "Done. Please check output in: $S_OUT"
+}
+
+function run_generate {
+    echo "--- RUNNING GENERATOR TASK ---"
+    mkdir -p "$S_OUT"
+    
+    cur=`pwd`
+    
+    cd $PROJ_P_LANG
+    docker build -t $IMAGE_NAME .
+    
+    docker run --rm -v "$S_OUT":/src/output -v "$S_IN":/src/input $IMAGE_NAME python3 -m hcmut.iaslab.nlp.app.main generate
+    
+    cd $cur
+    echo "Done. Please check output in: $S_OUT"
 }
 
 function run_submit {
-	# make submit file, just needed directories/files
-	# require: zip
-	echo "make submit file $STUDENT_ID.zip"
-	# zip PROJ_P_LANG -o $STUDENT_ID.zip
-	docker run --rm -ti -v `pwd`:/data thanhhungqb/images:zip-2023  zip -r /data/$STUDENT_ID.zip python java util.sh
-	echo "Please check file $STUDENT_ID.zip to make sure all correct directories/files included"
+    echo "--- MAKING SUBMISSION FILE ---"
+    
+    if ! command -v zip &> /dev/null; then
+        echo "Error: 'zip' is not installed. Please install it (sudo apt install zip)."
+        return
+    fi
+
+    run_generate
+    run_test
+    
+    cp python/hcmut/iaslab/nlp/data/grammar.txt "$S_OUT/"
+    
+    zip -r "${STUDENT_ID}.zip" python/ input/ "$STUDENT_ID/output/" util.sh README.md
+    
+    echo "Created: ${STUDENT_ID}.zip"
 }
 
 run_$1 "${@:2}"

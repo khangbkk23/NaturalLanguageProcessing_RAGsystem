@@ -29,8 +29,8 @@ class CFGrammar:
         with open(filename, 'r', encoding='utf-8') as f:
             for line_num, line in enumerate(f, 1):
                 line = line.strip()
-                
-                line = line.split('#')[0].strip() # Cắt bỏ mọi thứ sau dấu #
+                # Handle comment in grammar file
+                line = line.split('#')[0].strip()
                 if not line:
                     continue
                 

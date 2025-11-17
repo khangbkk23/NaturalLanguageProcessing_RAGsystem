@@ -1,7 +1,7 @@
 %start Sentences
 
 # ================
-# 1. CẤU TRÚC CÂU
+# 1. CẤU TRÚC CÂU (GIỮ NGUYÊN)
 # ================
 Sentences -> Sentence | Sentence Wh
 
@@ -17,102 +17,128 @@ BasicSentence -> DeliveryTimePhrase
 Subject -> NounPhrase
 Predicate -> VerbPhrase | AdjectivePhrase
 
-# ---------------
-# 2. CỤM DANH TỪ
-# ---------------
-NounPhrase -> CoreNounPhrase
-NounPhrase -> NounPhrase Modifier
+# ========================================================
+# 2. CỤM DANH TỪ (NÂNG CẤP NGỮ NGHĨA)
+# ========================================================
+# NounPhrase bây giờ là tập hợp của 2 nhánh riêng biệt:
+# 1. Nhánh Đồ ăn (FoodPhrase)
+# 2. Nhánh Đồ uống (DrinkPhrase)
 
-# Modifier
-Modifier -> PrepositionalPhrase
-Modifier -> AdjectivePhrase
-Modifier -> PrepositionAfter
+NounPhrase -> FoodPhrase
+NounPhrase -> DrinkPhrase
+NounPhrase -> OtherNounPhrase
 
-# Lõi danh từ
-CoreNounPhrase -> Noun
-CoreNounPhrase -> Noun Noun
-CoreNounPhrase -> Unit Noun
-CoreNounPhrase -> Quantifier Noun
-CoreNounPhrase -> Quantifier Unit Noun
-CoreNounPhrase -> PrepositionBefore Noun
-CoreNounPhrase -> ProperNoun
-CoreNounPhrase -> Pronoun
+# --- Logic ghép Đồ ăn ---
+# Đồ ăn + Option Đồ ăn (Phở + Tái) -> OK
+# Đồ ăn + Option Chung (Phở + Mang về) -> OK
+# Đồ ăn + Option Đồ uống -> KHÔNG CÓ QUY TẮC NÀY (Nên sẽ không bao giờ sinh ra)
 
-# ---------------
+FoodPhrase -> FoodCore
+FoodPhrase -> FoodPhrase FoodModifier
+
+FoodCore -> FoodName
+FoodCore -> Quantifier FoodName
+FoodCore -> Quantifier Unit FoodName
+FoodCore -> Unit FoodName
+
+FoodModifier -> FoodAdjectivePhrase      # (Cay, Tái...)
+FoodModifier -> CommonAdjectivePhrase    # (Lớn, Nhỏ...)
+FoodModifier -> PrepositionalPhrase
+FoodModifier -> PrepositionAfter
+
+# --- Logic ghép Đồ uống ---
+DrinkPhrase -> DrinkCore
+DrinkPhrase -> DrinkPhrase DrinkModifier
+
+DrinkCore -> DrinkName
+DrinkCore -> Quantifier DrinkName
+DrinkCore -> Quantifier Unit DrinkName
+DrinkCore -> Unit DrinkName
+
+DrinkModifier -> DrinkAdjectivePhrase    # (Ít đá, Đường...)
+DrinkModifier -> CommonAdjectivePhrase   # (Lớn, Nhỏ...)
+DrinkModifier -> PrepositionalPhrase
+DrinkModifier -> PrepositionAfter
+
+# --- Các danh từ khác (đơn hàng, menu...) ---
+OtherNounPhrase -> OtherCore
+OtherNounPhrase -> OtherNounPhrase Modifier
+OtherCore -> OrderRelated | ProperNoun | Pronoun
+
+# ================
 # 3. CỤM ĐỘNG TỪ
-# ---------------
-
-# Basic verb core
-VerbCore -> Verb
-VerbCore -> AdverbBefore_Verb Verb
-
-# Verb structure with modal support
-VerbStructure -> VerbCore
-VerbStructure -> VerbCore NounPhrase
-VerbStructure -> ModalVerb VerbCore
-VerbStructure -> ModalVerb VerbCore NounPhrase
-
-# Additional verb phrase structures
-VerbPhrase -> VerbStructure
-VerbPhrase -> VerbStructure AdjectivePhrase
-VerbPhrase -> VerbStructure DeliveryTimePhrase
+# ================
+VerbPhrase -> VerbCore
+VerbPhrase -> VerbPhrase NounPhrase
+VerbPhrase -> VerbPhrase AdjectivePhrase
+VerbPhrase -> VerbPhrase DeliveryTimePhrase
 VerbPhrase -> VerbPhrase AdverbAfter_Verb
 VerbPhrase -> VerbPhrase PrepositionalPhrase
 VerbPhrase -> VerbPhrase Conjunction VerbPhrase
 VerbPhrase -> VerbPhrase Conjunction NounPhrase
 
+VerbCore -> Verb
+VerbCore -> AdverbBefore_Verb Verb
+
 # -----------------------
 # 4. CÁC THÀNH PHẦN KHÁC
 # -----------------------
+# Chia nhỏ Adjective để phục vụ NounPhrase ở trên
+
 AdjectivePhrase -> Adjective
 AdjectivePhrase -> AdverbBefore_Adjective Adjective
 AdjectivePhrase -> Adjective AdverbAfter_Adjective
 
+FoodAdjectivePhrase -> FoodAdjective
+FoodAdjectivePhrase -> AdverbBefore_Adjective FoodAdjective
+
+DrinkAdjectivePhrase -> DrinkAdjective
+DrinkAdjectivePhrase -> AdverbBefore_Adjective DrinkAdjective
+
+CommonAdjectivePhrase -> CommonAdjective
+
 PrepositionalPhrase -> Preposition NounPhrase
 DeliveryTimePhrase -> giao lúc TimeExpression
+
+# Định nghĩa Modifier chung (cho OtherNounPhrase)
+Modifier -> PrepositionalPhrase
+Modifier -> AdjectivePhrase
+Modifier -> PrepositionAfter
 
 # ----------
 # 5. TỪ VỰNG
 # ----------
-
-# Động từ
 Verb -> OrderVerb | QueryVerb | ModifyVerb | CancelVerb
-
-OrderVerb -> đặt | yêu cầu | đặt thêm
+OrderVerb -> đặt | yêu cầu | đặt thêm | muốn đặt
 QueryVerb -> có | xem | kiểm tra | hỏi
-ModifyVerb -> thêm | sửa | đổi
-CancelVerb -> hủy | bỏ | xoá
+ModifyVerb -> thêm | sửa | đổi | muốn đổi
+CancelVerb -> hủy | bỏ | xóa | muốn hủy | huỷ | xoá
 
-# Modal verbs
-ModalVerb -> muốn | cần | phải | nên | có thể
+FoodName -> _MON_AN_MAN_
+DrinkName -> _DO_UONG_
 
-# Danh từ
-Noun -> _MON_AN_ | OrderRelated | TimeRelated
-OrderRelated -> đơn | đơn hàng | menu | thực đơn | món
+FoodAdjective -> _TUY_CHON_DO_AN_
+DrinkAdjective -> _TUY_CHON_DO_UONG_
+CommonAdjective -> _TUY_CHON_CHUNG_
+
+# Các từ vựng cũ
+Noun -> FoodName | DrinkName | OrderRelated | TimeRelated
+OrderRelated -> món | đơn | đơn hàng | menu | thực đơn
 TimeRelated -> giờ | phút
 
-# Tính từ
-Adjective -> _TUY_CHON_MON_ | PriceAdjective
+Adjective -> FoodAdjective | DrinkAdjective | CommonAdjective | PriceAdjective
 PriceAdjective -> đắt | rẻ | mắc | phải chăng
 
-# Danh từ riêng & đại từ
 ProperNoun -> _TEN_QUAN_
-Pronoun -> tôi | mình | em | anh | chị
-
-# Đơn vị & số lượng
 Unit -> _DON_VI_
-Quantifier -> _NUMBER_ | NumberWord
-NumberWord -> một | hai | ba | bốn | năm | sáu | bảy | tám | chín | mười | vài | những | các
-
-# Numbers (0-100)
-_NUMBER_ -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 100
 
 # Thời gian
 TimeAdverb -> TimeExpression
-TimeExpression -> hôm nay | hôm qua | ngày mai | bây giờ | lúc _NUMBER_ giờ | lúc _NUMBER_ giờ _NUMBER_ phút | _NUMBER_ giờ | _NUMBER_ giờ _NUMBER_ phút
+TimeExpression -> hôm nay | hôm qua | ngày mai | bây giờ | TimeNumber giờ | TimeNumber giờ TimeNumber phút
+TimeNumber -> 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 30 | 45
 
 # Phó từ
-AdverbBefore_Verb -> đã | cũng | chưa | đang | không | sẽ
+AdverbBefore_Verb -> đã | cũng | chưa | đang | không | muốn | sẽ
 AdverbAfter_Verb -> rồi | nhé | nha | ạ
 AdverbBefore_Adjective -> rất | cũng | không | khá | hơi
 AdverbAfter_Adjective -> lắm | quá

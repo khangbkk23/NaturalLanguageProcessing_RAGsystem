@@ -19,9 +19,19 @@ OUTPUT_DIR = os.path.join(SV_DIR, 'output')
 INPUT_DIR = os.path.join(ROOT_DIR, 'input')
 
 LEXICON_CONFIG = {
-    '_MON_AN_': os.path.join(DATA_DIR, 'dishes.txt'),
+    # Nhóm Đồ ăn
+    '_DO_AN_': os.path.join(DATA_DIR, 'food_names.txt'),
+    '_TUY_CHON_DO_AN_': os.path.join(DATA_DIR, 'food_opts.txt'),
+    
+    # Nhóm Đồ uống
+    '_DO_UONG_': os.path.join(DATA_DIR, 'drink_names.txt'),
+    '_TUY_CHON_DO_UONG_': os.path.join(DATA_DIR, 'drink_opts.txt'),
+    
+    # Nhóm Chung
+    '_TUY_CHON_CHUNG_': os.path.join(DATA_DIR, 'common_opts.txt'),
+    
+    # Các từ khác giữ nguyên
     '_DON_VI_': os.path.join(DATA_DIR, 'units.txt'),
-    '_TUY_CHON_MON_': os.path.join(DATA_DIR, 'food_options.txt'),
     '_TEN_QUAN_': os.path.join(DATA_DIR, 'restaurants.txt')
 }
 def simple_tokenizer(sentence: str) -> list:

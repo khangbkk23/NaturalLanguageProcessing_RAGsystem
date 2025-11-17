@@ -44,3 +44,5 @@ nóng
 lạnh
 size lớn
 size nhỏ
+Lớn
+nhỏ
