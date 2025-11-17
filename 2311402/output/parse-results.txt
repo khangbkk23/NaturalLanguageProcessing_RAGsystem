@@ -1,18 +1,18 @@
 The sentence: Tôi muốn đặt 2 phần phở bò giao lúc 12 giờ.
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (FoodName (_MON_AN_MAN_ 'phở' 'bò'))))))))) (DeliveryTimePhrase 'giao' 'lúc' (TimeExpression (_NUMBER_ '12') 'giờ'))))
+(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (FoodName (_DO_AN_ 'phở' 'bò'))))))))) (DeliveryTimePhrase 'giao' 'lúc' (TimeExpression (_NUMBER_ '12') 'giờ'))))
 
  ====================================================================== 
 
 The sentence: Có phở bò đặc biệt không
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_MON_AN_MAN_ 'phở' 'bò')))))) (AdjectivePhrase (Adjective (FoodAdjective (_TUY_CHON_DO_AN_ 'đặc' 'biệt')))))))) (Wh 'không'))
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_DO_AN_ 'phở' 'bò')))))) (AdjectivePhrase (Adjective (FoodAdjective (_TUY_CHON_DO_AN_ 'đặc' 'biệt')))))))) (Wh 'không'))
 
  ====================================================================== 
 
 The sentence: Có bún chả không?
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_MON_AN_MAN_ 'bún' 'chả')))))))))) (Wh 'không'))
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_DO_AN_ 'bún' 'chả')))))))))) (Wh 'không'))
 
  ====================================================================== 
 
@@ -24,19 +24,19 @@ Parsed rule:
 
 The sentence: Tôi muốn huỷ món gà rán trong đơn hàng.
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (CancelVerb 'huỷ'))) (NounPhrase (FoodPhrase (FoodCore (OrderRelated 'món') (FoodName (_MON_AN_MAN_ 'gà' 'rán'))))))) (PrepositionalPhrase (Preposition (PrepositionPlace 'trong')) (NounPhrase (OtherNounPhrase (OtherCore (OrderRelated 'đơn' 'hàng'))))))))))
+(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (CancelVerb 'huỷ'))) (NounPhrase (FoodPhrase (FoodCore (OrderRelated 'món') (FoodName (_DO_AN_ 'gà' 'rán'))))))) (PrepositionalPhrase (Preposition (PrepositionPlace 'trong')) (NounPhrase (OtherNounPhrase (OtherCore (OrderRelated 'đơn' 'hàng'))))))))))
 
  ====================================================================== 
 
 The sentence: Tôi đặt một phần gà rán.
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (NumberWord 'một')) (Unit (_DON_VI_ 'phần')) (FoodName (_MON_AN_MAN_ 'gà' 'rán')))))))))))
+(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (NumberWord 'một')) (Unit (_DON_VI_ 'phần')) (FoodName (_DO_AN_ 'gà' 'rán')))))))))))
 
  ====================================================================== 
 
 The sentence: Tôi muốn đặt bún chả
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_MON_AN_MAN_ 'bún' 'chả')))))))))))
+(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (FoodName (_DO_AN_ 'bún' 'chả')))))))))))
 
  ====================================================================== 
 
@@ -54,7 +54,7 @@ Parsed rule:
 
 The sentence: đặt thêm 2 phần cơm gà
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt' 'thêm'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (FoodName (_MON_AN_MAN_ 'cơm' 'gà')))))))))))
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt' 'thêm'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (FoodName (_DO_AN_ 'cơm' 'gà')))))))))))
 
  ====================================================================== 
 
@@ -84,7 +84,7 @@ Parsed rule:
 
 The sentence: Có món bún chả không?
 Parsed rule:
-(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (OrderRelated 'món') (FoodName (_MON_AN_MAN_ 'bún' 'chả')))))))))) (Wh 'không'))
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (FoodPhrase (FoodCore (OrderRelated 'món') (FoodName (_DO_AN_ 'bún' 'chả')))))))))) (Wh 'không'))
 
  ====================================================================== 
 

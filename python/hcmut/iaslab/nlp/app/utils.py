@@ -57,7 +57,4 @@ def load_grammar_with_lexicons(grammar_file: str,
             print(f"  [LỖI] Không tìm thấy file {lexicon_file}")
         except Exception as e:
             print(f"  [LỖI] Không thể đọc file {lexicon_file}: {e}")
-            
-    print(grammar.get_stats())
-    print("--- Nạp văn phạm hoàn tất ---")
     return grammar

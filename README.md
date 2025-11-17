@@ -14,7 +14,7 @@
 
 ## 2. Mục tiêu & Phạm vi BTL phần 1
 
-Trong phần này, hệ thống tập trung vào **Xử lý ngôn ngữ tự nhiên dựa trên văn phạm phi ngữ cảnh (CFG)** và **thuật toán phân tích cú pháp Earley**. Bao gom ba nhiem vu chinh
+Trong phần này, hệ thống tập trung vào **Xử lý ngôn ngữ tự nhiên dựa trên văn phạm phi ngữ cảnh (CFG)** và **thuật toán phân tích cú pháp Earley**. Bao gồm ba nhiệm vụ chính:
 
 ### 2.1. Xây dựng tập luật và văn phạm cho miền đặt món ăn online
 
@@ -152,17 +152,6 @@ run_generation_task(limit=10000)
 **Chức năng:**
 
 * Nạp đầy đủ grammar (bao gồm rule + lexicon).
-    
-* Sử dụng hai chiến lược:
-  1. `generate\_focused`: ưu tiên sinh các cấu trúc **có ý nghĩa trong ngữ cảnh đặt món**, ví dụ:
-        
-        *   Câu có động từ **đặt / muốn đặt / thêm / đổi / hủy**.
-            
-        *   Câu có **thời gian giao** (`DeliveryTimePhrase`).
-            
-        *   Câu có **câu hỏi đuôi**.
-            
-  2. `generate\_from\_symbol\_random`: sinh thêm câu một cách ngẫu nhiên dựa trên **DFS đệ quy** từ ký hiệu bắt đầu (start symbol), cho đến khi đủ.
         
 **Ghi kết quả:** 
 Toàn bộ câu sinh ra sẽ được ghi vào:

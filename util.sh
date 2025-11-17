@@ -8,11 +8,12 @@ BASE_DIR=$(pwd)
 S_OUT="$BASE_DIR/$STUDENT_ID/output"
 S_IN="$BASE_DIR/input"
 
+if [ ! -f "$PROJ_P_LANG/requirements.txt" ]; then
+    touch "$PROJ_P_LANG/requirements.txt"
+fi
+
 function run_ { 
     echo "Usage: ./util.sh [parse|generate|submit]" 
-    echo "  parse    : Run Earley parser with Docker"
-    echo "  generate : Generate sentences with Docker"
-    echo "  submit   : Package the project for submission"
 }
 
 function run_parse {
@@ -24,9 +25,15 @@ function run_parse {
     cd $PROJ_P_LANG
     echo "Building Docker image..."
     docker build -t $IMAGE_NAME .
-    docker run --rm -v "$S_OUT":/src/output -v "$S_IN":/src/input $IMAGE_NAME
+    
+    echo "Running container..."
+    docker run --rm \
+        -v "$S_OUT":/$STUDENT_ID/output \
+        -v "$S_IN":/input \
+        $IMAGE_NAME
+    
     cd $cur
-    echo "Done. Please check output in: $S_OUT"
+    echo "Done. Check output in: $S_OUT"
 }
 
 function run_generate {
@@ -36,29 +43,36 @@ function run_generate {
     cur=`pwd`
     
     cd $PROJ_P_LANG
+    echo "Building Docker image..."
     docker build -t $IMAGE_NAME .
     
-    docker run --rm -v "$S_OUT":/src/output -v "$S_IN":/src/input $IMAGE_NAME python3 -m hcmut.iaslab.nlp.app.main generate
+    echo "Running container..."
+    docker run --rm \
+        -v "$S_OUT":/$STUDENT_ID/output \
+        -v "$S_IN":/input \
+        $IMAGE_NAME python3 -m hcmut.iaslab.nlp.app.main generate
     
     cd $cur
-    echo "Done. Please check output in: $S_OUT"
+    echo "Done. Check output in: $S_OUT"
 }
 
 function run_submit {
     echo "--- MAKING SUBMISSION FILE ---"
     
     if ! command -v zip &> /dev/null; then
-        echo "Error: 'zip' is not installed. Please install it (sudo apt install zip)."
+        echo "Error: 'zip' is not installed."
         return
     fi
 
     run_generate
-    run_test
+    run_parse
     
-    cp python/hcmut/iaslab/nlp/data/grammar.txt "$S_OUT/"
+    echo "Copying grammar file..."
+    if [ -f "python/hcmut/iaslab/nlp/data/grammar.txt" ]; then
+        cp python/hcmut/iaslab/nlp/data/grammar.txt "$S_OUT/"
+    fi
     
     zip -r "${STUDENT_ID}.zip" python/ input/ "$STUDENT_ID/output/" util.sh README.md
-    
     echo "Created: ${STUDENT_ID}.zip"
 }
 
