@@ -9,7 +9,7 @@
 #		./util.sh submit
 
 # please provide info
-STUDENT_ID="student-id"
+STUDENT_ID="2311402"
 
 # python or java
 PROJ_P_LANG="python"
@@ -35,7 +35,6 @@ function run_test {
 	echo "please check output in $S_OUT"
 }
 
-
 function run_submit {
 	# make submit file, just needed directories/files
 	# require: zip
@@ -46,4 +45,3 @@ function run_submit {
 }
 
 run_$1 "${@:2}"
-
