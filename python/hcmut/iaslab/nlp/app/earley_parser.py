@@ -52,7 +52,6 @@ class EarleyParser:
         return self.build_parse_tree(start_symbol, len(tokens))
 
     def _add_to_chart(self, state: State, k: int):
-        """Thêm state vào chart[k] nếu nó chưa tồn tại"""
         if state not in self.chart[k]:
             self.chart[k].append(state)
 

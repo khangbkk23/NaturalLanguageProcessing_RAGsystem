@@ -30,7 +30,8 @@ class CFGrammar:
             for line_num, line in enumerate(f, 1):
                 line = line.strip()
                 
-                if not line or line.startswith('#'):
+                line = line.split('#')[0].strip() # Cắt bỏ mọi thứ sau dấu #
+                if not line:
                     continue
                 
                 if '->' in line:
@@ -38,9 +39,6 @@ class CFGrammar:
                         self.add_rule(line)
                     except Exception as e:
                         print(f"[Warning] Lỗi ở dòng {line_num}: {e}")
-        
-        print(f"[Grammar] Đã load {len(self.rules)} non-terminals, "
-              f"{len(self.terminals)} terminals")
     
     def add_rule(self, rule_str: str):
         parts = rule_str.split('->')

@@ -1,0 +1,90 @@
+The sentence: Tôi muốn đặt 2 phần phở bò giao lúc 12 giờ.
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Subject (NounPhrase (CoreNounPhrase (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (Noun (_MON_AN_ 'phở' 'bò')))))))) (DeliveryTimePhrase 'giao' 'lúc' (TimeExpression (_NUMBER_ '12') 'giờ'))))
+
+ ====================================================================== 
+
+The sentence: Có phở bò đặc biệt không
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (CoreNounPhrase (Noun (_MON_AN_ 'phở' 'bò'))))) (AdjectivePhrase (Adjective (_TUY_CHON_MON_ 'đặc' 'biệt'))))))) (Wh 'không'))
+
+ ====================================================================== 
+
+The sentence: Có bún chả không?
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (CoreNounPhrase (Noun (_MON_AN_ 'bún' 'chả'))))))))) (Wh 'không'))
+
+ ====================================================================== 
+
+The sentence: Thêm 1 trà sữa ít đường vào đơn nhé.
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbPhrase (VerbPhrase (VerbStructure (VerbCore (Verb (ModifyVerb 'thêm'))) (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '1')) (Noun (_MON_AN_ 'trà' 'sữa'))))) (AdjectivePhrase (Adjective (_TUY_CHON_MON_ 'ít' 'đường')))) (PrepositionalPhrase (Preposition (PrepositionPlace 'vào')) (NounPhrase (CoreNounPhrase (Noun (OrderRelated 'đơn')))))) (AdverbAfter_Verb 'nhé'))))))
+
+ ====================================================================== 
+
+The sentence: Tôi muốn huỷ món gà rán trong đơn hàng.
+Parsed rule:
+()
+
+ ====================================================================== 
+
+The sentence: Tôi đặt một phần gà rán.
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Subject (NounPhrase (CoreNounPhrase (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (CoreNounPhrase (Quantifier (NumberWord 'một')) (Unit (_DON_VI_ 'phần')) (Noun (_MON_AN_ 'gà' 'rán'))))))))))
+
+ ====================================================================== 
+
+The sentence: Tôi muốn đặt bún chả
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Subject (NounPhrase (CoreNounPhrase (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (CoreNounPhrase (Noun (_MON_AN_ 'bún' 'chả'))))))))))
+
+ ====================================================================== 
+
+The sentence: xem menu của KelvinCook
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'xem'))) (NounPhrase (CoreNounPhrase (Noun (OrderRelated 'menu')))))) (PrepositionalPhrase (Preposition (PrepositionPossessive 'của')) (NounPhrase (CoreNounPhrase (ProperNoun (_TEN_QUAN_ 'kelvincook'))))))))))
+
+ ====================================================================== 
+
+The sentence: tôi muốn đặt 1 ly trà sữa ít đá
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Subject (NounPhrase (CoreNounPhrase (Pronoun 'tôi')))) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '1')) (Unit (_DON_VI_ 'ly')) (Noun (_MON_AN_ 'trà' 'sữa'))))) (AdjectivePhrase (Adjective (_TUY_CHON_MON_ 'ít' 'đá'))))))))
+
+ ====================================================================== 
+
+The sentence: đặt thêm 2 phần cơm gà
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt' 'thêm'))) (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (Noun (_MON_AN_ 'cơm' 'gà'))))))))))
+
+ ====================================================================== 
+
+The sentence: hủy đơn hàng này nhé
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbPhrase (VerbStructure (VerbCore (Verb (CancelVerb 'hủy'))) (NounPhrase (NounPhrase (CoreNounPhrase (Noun (OrderRelated 'đơn' 'hàng')))) (Modifier (PrepositionAfter 'này'))))) (AdverbAfter_Verb 'nhé'))))))
+
+ ====================================================================== 
+
+The sentence: giao lúc 7 giờ 30 phút
+Parsed rule:
+(Sentences (Sentence (BasicSentence (DeliveryTimePhrase 'giao' 'lúc' (TimeExpression (_NUMBER_ '7') 'giờ' (_NUMBER_ '30') 'phút')))))
+
+ ====================================================================== 
+
+The sentence: đặt 2 ly cà phê sữa và 1 ly trà đào
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbPhrase (VerbStructure (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'ly')) (Noun (_MON_AN_ 'cà' 'phê' 'sữa')))))) (Conjunction 'và') (NounPhrase (CoreNounPhrase (Quantifier (_NUMBER_ '1')) (Unit (_DON_VI_ 'ly')) (Noun (_MON_AN_ 'trà' 'đào')))))))))
+
+ ====================================================================== 
+
+The sentence: mình muốn đổi món này
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Subject (NounPhrase (CoreNounPhrase (Pronoun 'mình')))) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (ModifyVerb 'đổi'))) (NounPhrase (NounPhrase (CoreNounPhrase (Noun (OrderRelated 'món')))) (Modifier (PrepositionAfter 'này')))))))))
+
+ ====================================================================== 
+
+The sentence: Có món bún chả không?
+Parsed rule:
+(Sentences (Sentence (BasicSentence (Predicate (VerbPhrase (VerbStructure (VerbCore (Verb (QueryVerb 'có'))) (NounPhrase (CoreNounPhrase (Noun (OrderRelated 'món')) (Noun (_MON_AN_ 'bún' 'chả'))))))))) (Wh 'không'))
+
+ ====================================================================== 
+

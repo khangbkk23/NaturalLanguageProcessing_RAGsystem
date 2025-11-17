@@ -34,15 +34,12 @@ def run_generation_task(limit=10000):
 
     print("--- Sinh câu ngẫu nhiên ---")
     
-    # 1. Nạp văn phạm
     grammar_file = os.path.join(DATA_DIR, 'grammar.txt')
     grammar = load_grammar_with_lexicons(grammar_file, LEXICON_CONFIG)
     
-    # 2. Chuẩn bị file output
     output_file = os.path.join(OUTPUT_DIR, 'samples.txt')
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
-    # 3. Vòng lặp sinh câu
     generated_sentences = set()
     start_symbol = grammar.start_symbol
     
@@ -68,6 +65,3 @@ def run_generation_task(limit=10000):
             f_out.write(s + "\n")
             
     print(f"Đã lưu kết quả vào: {output_file}")
-
-if __name__ == "__main__":
-    run_generation_task(limit=10000)

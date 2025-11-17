@@ -1,3 +1,11 @@
+đặc biệt
+thập cẩm
+tái
+nạm
+gầu
+gân
+viên
+trân châu
 bò
 gà
 heo
@@ -5,8 +13,6 @@ cá
 tôm
 mực
 trứng
-đặc biệt
-thập cẩm
 hải sản
 chay
 nướng
@@ -21,15 +27,20 @@ cay
 rất cay
 ít nước
 nhiều nước
-thêm topping
+nhiều topping
 ít đá
 nhiều đá
+không đá
 ít đường
 nhiều đường
+không đường
 đậm đà
 ngon
 nhạt
 béo
 giòn
 mềm
-đặc biệt
+nóng
+lạnh
+size lớn
+size nhỏ
