@@ -8,19 +8,23 @@ BASE_DIR=$(pwd)
 S_OUT="$BASE_DIR/$STUDENT_ID/output"
 S_IN="$BASE_DIR/input"
 
-function run_ { echo "Please give either command submit/test/generate" ; }
+function run_ { 
+    echo "Usage: ./util.sh [parse|generate|submit]" 
+    echo "  parse    : Run Earley parser with Docker"
+    echo "  generate : Generate sentences with Docker"
+    echo "  submit   : Package the project for submission"
+}
 
-function run_test {
-    echo "--- RUNNING PARSER TASK ---"
+function run_parse {
+    echo "--- RUNNING PARSER TASK (DOCKER) ---"
     mkdir -p "$S_OUT"
     
     cur=`pwd`
     
     cd $PROJ_P_LANG
+    echo "Building Docker image..."
     docker build -t $IMAGE_NAME .
-    
     docker run --rm -v "$S_OUT":/src/output -v "$S_IN":/src/input $IMAGE_NAME
-    
     cd $cur
     echo "Done. Please check output in: $S_OUT"
 }
