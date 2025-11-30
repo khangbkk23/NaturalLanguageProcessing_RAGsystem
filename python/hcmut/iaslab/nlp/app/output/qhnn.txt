@@ -1,0 +1,57 @@
+============================================================
+HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
+Thời gian: 2025-12-01 00:00:24
+Quan hệ ngữ nghĩa
+============================================================
+
+Câu 1: Tôi muốn đặt chục trà sữa
+Tokens: ['tôi', 'muốn', 'đặt', 'chục', 'trà_sữa']
+Relations:
+  - (s1 PRED đặt)
+  - (s1 THEME trà_sữa)
+  - (trà_sữa QUANTITY chục)
+
+------------------------------------------------------------
+
+Câu 2: tôi muốn đặt 36 phần gà rán
+Tokens: ['tôi', 'muốn', 'đặt', '36', 'gà_rán']
+Relations:
+  - (s1 PRED đặt)
+  - (s1 THEME gà_rán)
+  - (gà_rán QUANTITY 36)
+
+------------------------------------------------------------
+
+Câu 3: Tôi muốn đặt năm tô phở bò
+Tokens: ['tôi', 'muốn', 'đặt', 'năm', 'phở_bò']
+Relations:
+  - (s1 PRED đặt)
+  - (s1 THEME phở_bò)
+  - (phở_bò QUANTITY năm)
+
+------------------------------------------------------------
+
+Câu 4: Có những món nào trong menu
+Tokens: ['có', 'những', 'món_nào', 'trong', 'menu']
+Relations:
+  - (s1 PRED có)
+  - (s1 LOCATION menu)
+
+------------------------------------------------------------
+
+Câu 5: Có những món gì trong menu ?
+Tokens: ['có', 'những_món_gì', 'trong', 'menu', '?']
+Relations:
+  - (s1 PRED có)
+  - (s1 QUERY những_món_gì)
+  - (s1 LOCATION menu)
+
+------------------------------------------------------------
+
+Câu 6: Tôi đã đặt những món gì ?
+Tokens: ['tôi', 'đã', 'đặt', 'những_món_gì', '?']
+Relations:
+  - (s1 QUERY những_món_gì)
+
+------------------------------------------------------------
+

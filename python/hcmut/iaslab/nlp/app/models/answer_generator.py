@@ -2,6 +2,13 @@
 from models.database import RestaurantDatabase
 from models.semantic_procedure import Procedure
 
+text2num = {
+    "một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5,
+    "sáu": 6, "bảy": 7, "tám": 8, "chín": 9, "mười": 10,
+    "chục": 10, "trăm": 100,
+    "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10
+}
+
 class AnswerGenerator:
     def __init__(self, db: RestaurantDatabase):
         self.db = db
@@ -63,16 +70,26 @@ class AnswerGenerator:
 
         # 5. ADD_TO_CART
         elif cmd == "ADD_TO_CART":
-            # args: [item_name, quantity]
-            if not args: return "Không rõ món cần thêm."
-            item_name = args[0]
-            qty = int(args[1]) if len(args) > 1 and str(args[1]).isdigit() else 1
+            if not args or not args[0]: 
+                return "Không rõ món cần thêm."
             
-            # Mặc định chưa xử lý options phức tạp từ câu nói (để đơn giản)
+            item_name = args[0]
+            raw_qty = args[1] if len(args) > 1 else "1"
+            qty = 1
+            raw_str = str(raw_qty).lower().strip()
+            
+            # Case 1: Là số (digit)
+            if raw_str.isdigit():
+                qty = int(raw_str)
+            # Case 2: Là chữ (text)
+            elif raw_str in text2num:
+                qty = text2num[raw_str]
+            else:
+                qty = 1 
+            
             result = self.db.add_to_cart(item_name, qty, options=[])
             
             if result['success']:
                 return f"Đã thêm {qty} phần {result['item']['dish_name']} vào đơn."
             return f"Không thể thêm món: {result['message']}"
-
         return "Xin lỗi, tôi chưa hiểu ý định của bạn."
