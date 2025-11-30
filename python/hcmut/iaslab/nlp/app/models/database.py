@@ -86,12 +86,17 @@ class RestaurantDatabase:
         return [d for d in self.data['dishes'] if d.get('type') == 'drink']
 
     def find_item_by_name(self, name):
+        if not name or not name.strip():
+            return None
+
         name_lower = name.lower().replace("_", " ").strip()
-    
+        
+        # 1. Tìm chính xác
         for item in self.data['dishes']:
             if item['name'].lower() == name_lower:
                 return item
         
+        # 2. Tìm tương đối
         for item in self.data['dishes']:
             if name_lower in item['name'].lower():
                 return item

@@ -1,115 +1,44 @@
+# python/hcmut/iaslab/nlp/app/models/data.py
 from collections import OrderedDict
 import re
 from unicodedata import normalize
 
-# Import Database để lấy dữ liệu động
-# Lưu ý: Import bên trong hoặc xử lý khéo để tránh Circular Import nếu cấu trúc dự án phức tạp
-# Ở đây ta giả định data.py là tầng thấp nhất, có thể import database wrapper
-try:
-    from models.database import RestaurantDatabase
-except ImportError:
-    # Fallback cho trường hợp chạy unit test riêng lẻ
-    RestaurantDatabase = None
+# --- CONSTANTS ---
+ROOT = "ROOT"
+N = "NOUN"; V = "VERB"; PP = "PREPOSITION"; Q = "QUERY"; NAME = "NAME"
+PUNC = "PUNC"; YN = "YESNO"; ADV = "ADVERB"; P = "PRONOUN"; DET = "DETERMINER"; NUM = "NUMBER"
 
-# ==================== 1. ĐỊNH NGHĨA HẰNG SỐ (CONSTANTS) ====================
-N = "NOUN"
-V = "VERB"
-PP = "PREPOSITION"
-Q = "QUERY"
-NAME = "NAME"
-PUNC = "PUNC"
-YN = "YESNO"
-ADV = "ADVERB"
-P = "PRONOUN"
-DET = "DETERMINER"
-NUM = "NUMBER"
-
-# ==================== 2. TỪ VỰNG CỐ ĐỊNH (STATIC LEXICON) ====================
-# Chỉ chứa các từ chức năng, ngữ pháp, không chứa tên món ăn cụ thể
-STATIC_TOKENIZE = OrderedDict({
-    "bao nhiêu": "bao_nhiêu",
-    "món nào": "món_nào",
-    "những món gì": "những_món_gì",
-    "món gì": "món_gì",
-    "vào đơn": "vào_đơn",
-    "đơn hàng": "đơn_hàng",
-    "thực đơn": "menu",
-    "hết hàng": "hết_hàng"
+# --- TỪ VỰNG TOKENIZE (Hardcode) ---
+TOKENIZE_DICT = OrderedDict({
+    "bao nhiêu": "bao_nhiêu", "món nào": "món_nào", "những món gì": "những_món_gì", 
+    "món gì": "món_gì", "vào đơn": "vào_đơn", "đơn hàng": "đơn_hàng", "thực đơn": "menu",
+    # Tên món
+    "phở bò": "phở_bò", "gà rán": "gà_rán", "trà sữa": "trà_sữa", 
+    "bún chả": "bún_chả", "cơm tấm": "cơm_tấm", "cà phê sữa": "cà_phê_sữa", "nước cam": "nước_cam",
+    # Option
+    "ít đường": "ít_đường", "nhiều đá": "nhiều_đá"
 })
 
-STATIC_POS = {
-    "có": V,
-    "những": DET,
-    "món": N,
-    "nào": Q,
-    "trong": PP,
-    "menu": N,
-    "thực_đơn": N,
-    "giá": N,
-    "bao_nhiêu": Q,
-    "không": YN,
-    "tôi": P,
-    "đã": ADV,
-    "đặt": V,
-    "những_món_gì": Q,
-    "món_gì": Q,
-    "thêm": V,
-    "bớt": V,
-    "hủy": V,
-    "xóa": V,
-    "lấy": V,
-    "cho": V,
-    "1": NUM, "2": NUM, "3": NUM, "4": NUM, "5": NUM,
-    "ly": N,
-    "phần": N,
-    "tô": N,
-    "dĩa": N,
-    "chén": N,
-    "cốc": N,
-    "suất": N,
-    "vào_đơn": PP,
-    "?": PUNC,
-    ".": PUNC,
-    "nhé": PUNC,
-    "gì": Q,
-    "ạ": PUNC,
+# --- POS TAGS ---
+POS = {
+    "có": V, "những": DET, "món": N, "nào": Q, "gì": Q, "trong": PP,
+    "menu": N, "thực_đơn": N, "giá": N, "bao_nhiêu": Q, "không": YN,
+    "tôi": P, "đã": ADV, "đặt": V, "thêm": V, "cho": V, "lấy": V, "mua": V,
+    "1": NUM, "2": NUM, "3": NUM, "ly": N, "phần": N, "vào_đơn": PP, 
+    "?": PUNC, ".": PUNC,
+    # Món ăn
+    "phở_bò": NAME, "gà_rán": NAME, "trà_sữa": NAME, "bún_chả": NAME, 
+    "cơm_tấm": NAME, "cà_phê_sữa": NAME, "nước_cam": NAME
 }
 
-PRONOUN = ["tôi", "em", "anh", "bạn", "mình", "shop", "quán"]
+def tokenize(text: str) -> "list[str]":
+    if not text: return []
+    text = normalize("NFC", text).lower()
+    text = re.sub(r"\s{2,}", " ", text)
+    text = re.sub(r"(.)\?", r"\1 ?", text)
+    text = re.sub(r"(.)\.", r"\1 .", text)
 
-# ==================== 3. HÀM KHỞI TẠO DỮ LIỆU ĐỘNG ====================
+    for k, v in TOKENIZE_DICT.items():
+        if k in text: text = text.replace(k, v)
 
-def load_dynamic_data():
-
-    final_tokenize = STATIC_TOKENIZE.copy()
-    final_pos = STATIC_POS.copy()
-    if RestaurantDatabase:
-        try:
-            db = RestaurantDatabase()
-            items = db.get_all_items()
-            
-            for item in items:
-                raw_name = item['name'].lower().strip()
-                token_name = raw_name.replace(" ", "_")
-                final_tokenize[raw_name] = token_name
-                final_pos[token_name] = NAME
-                
-                if 'options' in item:
-                    for opt in item['options']:
-                        opt_raw = opt.lower().strip()
-                        opt_token = opt_raw.replace(" ", "_")
-                        final_tokenize[opt_raw] = opt_token
-                        if opt_token not in final_pos:
-                            final_pos[opt_token] = N
-
-        except Exception as e:
-            print(f"Warning: Không thể load dữ liệu động từ DB: {e}")
-    
-    sorted_tokenize = OrderedDict(
-        sorted(final_tokenize.items(), key=lambda x: len(x[0]), reverse=True)
-    )
-    
-    return sorted_tokenize, final_pos
-
-
-TOKENIZE_DICT, POS = load_dynamic_data()
+    return [t for t in text.split(" ") if t in POS or t.isdigit()]

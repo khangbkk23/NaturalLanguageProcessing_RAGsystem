@@ -1,30 +1,7 @@
-from models.data import *
-import re
-from unicodedata import normalize
-
-def tokenize(text: str) -> "list[str]":
-    text = normalize("NFC", text)
-    text = re.sub(r"\s{2,}", " ", text)
-    text = re.sub(r"(.)\?", r"\1 ?", text)
-    text = re.sub(r"(.)\.", r"\1 .", text)
-    text = text.lower()
-
-    for token in TOKENIZE_DICT:
-        text = re.sub(token, TOKENIZE_DICT[token], text)
-
-    tokens = text.split(" ")
-    valid_tokens = []
-    for t in tokens:
-        if t in POS or t.isdigit():
-            valid_tokens.append(t)
-    return valid_tokens
-
-ROOT = "ROOT"
-
-# Định nghĩa luật phụ thuộc (Heuristic Rules)
-# Cấu trúc: HEAD_POS: {TAIL_POS: RELATION}
+import models.data as dt
+from models.data import ROOT, N, V, NAME, Q, PP, YN, NUM, PUNC, DET, ADV, P
 RIGHT_ARC = {
-    ROOT: {V: "root", N: "root"}, # Đôi khi Noun cũng làm root (ví dụ câu hỏi giá)
+    ROOT: {V: "root", N: "root"}, 
     V: {N: "dobj", Q: "query", PP: "loc", YN: "yesno", NAME: "dobj", NUM: "quan", PUNC: "punc"},
     N: {Q: "nmod", PP: "nmod", NAME: "nmod", PUNC: "punc"}, 
     NAME: {Q: "query", N: "attr", V: "acl", YN: "yesno", PUNC: "punc"},
@@ -34,7 +11,7 @@ RIGHT_ARC = {
 
 LEFT_ARC = {
     N: {DET: "det", NAME: "nmod", PP: "nmod"}, 
-    NAME: {N: "subj"}, # giá -> phở bò (giá của phở bò)
+    NAME: {N: "subj"}, 
     V: {ADV: "adv", P: "subj"},
     Q: {},
     PP: {V: "vmod"},
@@ -58,9 +35,12 @@ def malt_parse_helper(tokens: "list[str]") -> "list[Dependency]":
         stack_item = stack[-1]
         buffer_item = buffer[0]
         
-        stack_pos = POS.get(stack_item, ROOT)
-        buffer_pos = POS.get(buffer_item, N) # Mặc định là N (cho số)
-        if buffer_item.isdigit(): buffer_pos = NUM
+        stack_pos = dt.POS.get(stack_item, ROOT)
+        
+        if buffer_item.isdigit():
+            buffer_pos = NUM
+        else:
+            buffer_pos = dt.POS.get(buffer_item, N)
 
         dependency = None
         
@@ -83,5 +63,5 @@ def malt_parse_helper(tokens: "list[str]") -> "list[Dependency]":
     return dependencies
 
 def malt_parse(sentence: str) -> "list[Dependency]":
-    tokens = tokenize(sentence)
+    tokens = dt.tokenize(sentence)
     return malt_parse_helper(tokens)

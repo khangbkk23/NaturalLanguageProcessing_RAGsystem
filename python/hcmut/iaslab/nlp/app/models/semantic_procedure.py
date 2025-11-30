@@ -1,16 +1,11 @@
-# python/hcmut/iaslab/nlp/app/models/semantic_procedure.py
 from models.grammar_relation import SEM
 
 class Procedure:
     def __init__(self, name:str, args:list):
-        self.name = name
-        self.args = args
-    def __str__(self): return f"{self.name}({', '.join(self.args)})"
+        self.name = name; self.args = args
+    def __str__(self): return f"{self.name}({', '.join(map(str, self.args))})"
 
 def proceduralize(sem: SEM) -> Procedure:
-    """
-    Chuyển đổi Logical form thành Procedural semantics.
-    """
     intent = sem.predicate
     pred = ""
     theme = ""
@@ -18,46 +13,46 @@ def proceduralize(sem: SEM) -> Procedure:
     attr_item = ""
     quantity = "1"
     
-    # Trích xuất thông tin từ cây SEM
+    # Flatten Tree
     for child in sem.relations:
-        if child.predicate == "PRED": 
-            pred = child.variable
+        # [QUAN TRỌNG] Lấy dữ liệu từ variable (đã được fix ở logical_form.py)
+        val = str(child.variable) if child.variable else ""
+        
+        if child.predicate == "PRED": pred = val
         elif child.predicate == "THEME": 
-            theme = child.variable
+            theme = val
             for sub in child.relations:
-                if sub.predicate == "QUANT": 
-                    quantity = sub.variable
-        elif child.predicate == "LOCATION":
-            location = child.variable
-        elif child.predicate == "HAS-ATTR":
-            attr_item = child.variable
+                if sub.predicate == "QUANT": quantity = str(sub.variable)
+        elif child.predicate == "LOCATION": location = val
+        elif child.predicate == "HAS-ATTR": attr_item = val
 
-    
-    # 1. Câu hỏi liệt kê menu
-    # "Có những món nào?" -> (EXIST-QUERY, PRED có, THEME món)
-    if intent == "EXIST-QUERY" and theme in ["menu", "món", "thực_đơn", "trong"]:
+    # --- RULES MAPPING ---
+
+    # 1. LIST MENU: (Hỏi 'có món gì' hoặc 'trong menu')
+    if (intent in ["EXIST-QUERY", "WH-QUERY"]) and \
+       (theme in ["menu", "thực_đơn", "món"] or location in ["menu", "thực_đơn", "trong"]):
         return Procedure("LIST_ALL_ITEMS", [])
 
-    # 2. Câu hỏi giá
-    # "Phở bò giá bao nhiêu?" -> (PRICE-QUERY, ...)
+    # 2. ASK PRICE: (Hỏi giá)
     if intent == "PRICE-QUERY":
-        # item nằm ở attribute (giá CỦA phở_bò) hoặc theme
-        target = attr_item if attr_item else theme
+        target = attr_item if attr_item else theme # Ưu tiên attribute (giá của X)
+        if not target and dt.POS.get(pred) == dt.NAME: target = pred # Fallback nếu parser nhận tên món là root
         return Procedure("GET_PRICE", [target])
 
-    # 3. Câu hỏi tồn tại món (Yes/No)
-    # "Có món gà rán không?" -> (EXIST-QUERY, PRED có, THEME gà_rán)
-    if intent == "EXIST-QUERY" or intent == "YN-QUERY":
-        return Procedure("CHECK_AVAILABILITY", [theme])
+    # 3. CHECK AVAILABILITY: (Hỏi có món X không)
+    if intent in ["EXIST-QUERY", "YN-QUERY"]:
+        if theme and theme not in ["menu", "món", "gì"]:
+             return Procedure("CHECK_AVAILABILITY", [theme])
 
-    # 4. Câu hỏi lịch sử đặt hàng
-    # "Tôi đã đặt món gì?" -> (WH-QUERY, PRED đặt)
-    if intent == "WH-QUERY" and pred == "đặt":
-        return Procedure("GET_ORDER_HISTORY", ["user_current"])
+    # 4. ORDER HISTORY: (Hỏi lịch sử)
+    if (intent in ["WH-QUERY", "STATEMENT"]) and \
+       (pred in ["đặt", "gọi", "xem"] or theme in ["đơn_hàng", "những_món_gì"]):
+        return Procedure("GET_ORDER_HISTORY", [])
 
-    # 5. Hành động thêm vào giỏ
-    # "Thêm 1 trà sữa" -> (STATEMENT, PRED thêm, THEME trà_sữa, QUANT 1)
-    if intent == "STATEMENT" and pred in ["thêm", "đặt"]:
+    # 5. ADD TO CART: (Thêm món)
+    if intent == "STATEMENT" and pred in ["thêm", "cho", "lấy", "đặt"]:
         return Procedure("ADD_TO_CART", [theme, quantity])
 
     return Procedure("UNKNOWN_PROCEDURE", [])
+# Cần import models.data để dùng dt.POS trong case Ask Price
+import models.data as dt
