@@ -4,14 +4,23 @@ import os
 from datetime import datetime
 
 class RestaurantDatabase:
-
-    def __init__(self, menu_file='data/menu.json'):
+    def __init__(self, menu_file='data/menu.json', reset_order=False):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.menu_file = os.path.join(base_dir, menu_file)
         
         self.data = self._load_database()
-
-    # ==================== CORE: LOAD & SAVE ====================
+        if reset_order:
+            self._reset_current_order()
+    
+    def _reset_current_order(self):
+        self.data['current_order'] = {
+            'order_id': 'CURRENT',
+            'user': 'default_user',
+            'items': [],
+            'total': 0,
+            'status': 'draft'
+        }
+        self.save_database()
 
     def _load_database(self):
         try:
@@ -58,6 +67,7 @@ class RestaurantDatabase:
                 {'id': 1, 'name': 'phở bò', 'price': 50000, 'type': 'food', 'category': 'món nước', 'available': True, 'options': ['tái', 'nạm', 'gầu', 'viên']},
                 {'id': 2, 'name': 'cơm tấm', 'price': 45000, 'type': 'food', 'category': 'cơm', 'available': True, 'options': ['sườn', 'bì', 'chả', 'trứng ốp la']},
                 {'id': 3, 'name': 'bún chả', 'price': 55000, 'type': 'food', 'category': 'món nước', 'available': True, 'options': ['thêm thịt', 'thêm bún']},
+                {'id': 4, 'name': 'gà rán', 'price': 65000, 'type': 'food', 'category': 'món chiên', 'available': True, 'options': ['cay', 'không cay', 'giòn']},
                 
                 # --- DRINK ---
                 {'id': 101, 'name': 'trà sữa', 'price': 25000, 'type': 'drink', 'category': 'trà', 'available': True, 'options': ['ít đường', 'nhiều đường', 'trân châu đen', 'thạch dừa']},

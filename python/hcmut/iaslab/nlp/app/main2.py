@@ -1,7 +1,8 @@
-# python/hcmut/iaslab/nlp/app/main.py
+# python/hcmut/iaslab/nlp/app/main2.py
 import sys
 import os
 
+# Thêm đường dẫn hiện tại vào path để import được package 'models'
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import các module
@@ -11,42 +12,54 @@ from models.logical_form import logicalize
 from models.semantic_procedure import proceduralize
 from models.database import RestaurantDatabase
 from models.answer_generator import AnswerGenerator
-from models.data import tokenize # Chỉ cần import tokenize
+from models.data import tokenize
 
 def process_query(sentence: str, generator: AnswerGenerator):
-    print(f"\n🗣️  USER: {sentence}")
-    print("-" * 60)
+    print(f"\nKhách iu: {sentence}")
+    print("=" * 60)
     
-    # Debug Tokenize
-    # tokens = tokenize(sentence)
-    # print(f"Tokens: {tokens}")
+    # Tokenization
+    tokens = tokenize(sentence)
+    print(f"1️⃣  Tokens:       {tokens}")
 
+    # Dependency parsing
     dependencies = malt_parse(sentence)
+    dep_str = ', '.join([f"{d.relation}({d.head}->{d.tail})" for d in dependencies])
+    print(f"2️⃣  Dependencies: [{dep_str}]")
+
+    # Semantic relations
     relations = relationalize(dependencies)
+    rel_str = ', '.join([str(r) for r in relations])
+    print(f"3️⃣  Relations:    [{rel_str}]")
+
+    # Logical form
     logical_form = logicalize(relations)
+    print(f"4️⃣  Logical Form: {logical_form}")
     
-    # [Lưu ý] Đảm bảo bạn đang dùng file semantic_procedure.py phiên bản ROBUST tôi gửi ở câu trước
+    # Procedural semantics
     procedure = proceduralize(logical_form)
-    print(f"⚙️  Procedure: {procedure}")
+    print(f"5️⃣  Procedure:    \033[92m{procedure}\033[0m")
     
+    # Execution & answer
     response = generator.execute_and_answer(procedure)
-    print(f"🤖 BOT: {response}")
     print("-" * 60)
+    print(f"KelvinCook Server: {response}")
+    print("=" * 60)
 
 def main():
-    print("=== 🍜 HỆ THỐNG ĐẶT MÓN ĂN (SIMPLE MODE) 🍜 ===")
+    print("\nHỆ THỐNG ĐẶT MÓN ĂN CỦA NHÀ HÀNG KELVINCOOK")
     
-    # 1. Khởi tạo Database (Chỉ để lấy giá tiền, không dùng để load từ vựng nữa)
-    db = RestaurantDatabase()
-    
-    # 2. Khởi tạo Generator
+    db = RestaurantDatabase(reset_order=True)
+    # db = RestaurantDatabase()
+    print(f"Database loaded: {len(db.get_all_items())} items.")
     generator = AnswerGenerator(db)
 
     test_queries = [
+        "Tôi muốn đặt một tô phở bò tái",
         "Có những món gì trong menu ?",
         "Phở bò giá bao nhiêu ?",
         "Có món gà rán không ?",
-        "Thêm 2 trà sữa vào đơn .",
+        "Thêm 2 ly trà sữa vào đơn .",
         "Tôi đã đặt những món gì ?"
     ]
     
