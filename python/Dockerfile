@@ -7,88 +7,70 @@
 # base-image maybe share for quicker build and save storage
 # thanhhungqb/python-builder:ver
 # =====================================================================
+FROM python:3.8-slim-bullseye as builder
 
-FROM python:3.8-slim-bullseye as python-builder
-
-LABEL author = "Hung Vo" 
-LABEL contact.gmail = "thanhhungqb@gmail.com"
-
-ARG DEBIAN_FRONTEND=noninteractive
+LABEL author="Hung Vo"
+LABEL description="NLP Assignment Docker Image"
 
 ENV TZ=Asia/Ho_Chi_Minh
-
-RUN apt-get update && apt-get install -y --no-install-recommends locales git wget apt-utils  && \
-    apt -y --no-install-recommends install make cmake gcc g++ build-essential && \  
-    apt -y --no-install-recommends install libsndfile1-dev ffmpeg && \  
-    pip3 install --upgrade pip && \  
-    locale-gen en_US.UTF-8  && \  
-    rm -rf /var/lib/apt/lists/*
-
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \    
-    locale-gen
-    
-ENV LANG en_US.UTF-8    
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-
-# =====================================================================
-# builder stage, maybe from python-builder or thanhhungqb/python-builder:TAG (for quicker to build, remove above part when use pre-build image)
-# install all libraries and dependency (both pip and apt if needed)
-# after that, just copy needed file for small, clean runtime image bellow.
-# in most of simple case, you are not need to modify this part, just provide requirements.txt and DONE.
-# if provide setup instead requirements, use: pip3 install -e . after COPY command
-# in some case, use apt install is needed, refer to python-builder to copy similar install command
-# =====================================================================
-
-FROM python-builder as builder
-
-# use venv and copy to runtime
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# RUN apt-get update && apt-get install -y --no-install-recommends LIBRARIES HERE
-
-COPY requirements.txt /src/requirements.txt
-RUN python3 -m pip install --upgrade pip && \
-	pip install -r /src/requirements.txt && \
-    rm -rf /root/.cache/pip
-
-
-# =====================================================================
-# final part: build the runtime image
-# keep it simple and clean
-# =====================================================================
-
-FROM python:3.8-slim-bullseye as runtime
-LABEL author = "Hung Vo" 
-LABEL contact.gmail = "thanhhungqb@gmail.com"
-
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Ho_Chi_Minh
 
-RUN apt-get update && apt-get -y --no-install-recommends install locales && \
-    apt-get -y --no-install-recommends install ffmpeg && \
-    locale-gen en_US.UTF-8 && \
-    rm -rf /var/lib/apt/lists/*
+# 1. Cài đặt các gói cần thiết để build (gcc, make...) 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    locales \
+    && rm -rf /var/lib/apt/lists/*
 
+# 2. Thiết lập Locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
-    
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+# 3. Tạo virtual environment và cài dependencies
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt /src/requirements.txt
+RUN python3 -m pip install --upgrade pip && \
+    pip install -r /src/requirements.txt && \
+    rm -rf /root/.cache/pip
+
+
+FROM python:3.8-slim-bullseye as runtime
+
+LABEL author="Student"
+
+ENV TZ=Asia/Ho_Chi_Minh
+ARG DEBIAN_FRONTEND=noninteractive
+
+# 1. Cài đặt Runtime dependencies
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    locales \
+    default-jre \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Thiết lập Locale cho Runtime
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# 3. Copy môi trường ảo Python từ Builder
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-
+# 4. Copy mã nguồn vào container
 COPY . /src/
-ENV PYTHONPATH="/src"
-
 WORKDIR /src/
 
-EXPOSE 5000
+ENV PYTHONPATH="/src"
 
+RUN mkdir -p /src/output
 
-CMD ["python3", "-m", "hcmut.iaslab.nlp.app.main"]
+# 5. Lệnh chạy mặc định
+CMD ["python3", "-m", "hcmut.iaslab.nlp.app.main2"]
