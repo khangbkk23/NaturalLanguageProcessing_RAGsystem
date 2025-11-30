@@ -1,0 +1,131 @@
+{
+  "dishes": [
+    {
+      "id": 1,
+      "name": "phở bò",
+      "price": 50000,
+      "type": "food",
+      "category": "món nước",
+      "available": true,
+      "options": [
+        "tái",
+        "nạm",
+        "gầu",
+        "viên"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "cơm tấm",
+      "price": 45000,
+      "type": "food",
+      "category": "cơm",
+      "available": true,
+      "options": [
+        "sườn",
+        "bì",
+        "chả",
+        "trứng ốp la"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "bún chả",
+      "price": 55000,
+      "type": "food",
+      "category": "món nước",
+      "available": true,
+      "options": [
+        "thêm thịt",
+        "thêm bún"
+      ]
+    },
+    {
+      "id": 101,
+      "name": "trà sữa",
+      "price": 25000,
+      "type": "drink",
+      "category": "trà",
+      "available": true,
+      "options": [
+        "ít đường",
+        "nhiều đường",
+        "trân châu đen",
+        "thạch dừa"
+      ]
+    },
+    {
+      "id": 102,
+      "name": "cà phê sữa",
+      "price": 20000,
+      "type": "drink",
+      "category": "cà phê",
+      "available": true,
+      "options": [
+        "nóng",
+        "đá",
+        "ít sữa",
+        "nhiều sữa"
+      ]
+    },
+    {
+      "id": 103,
+      "name": "nước cam",
+      "price": 30000,
+      "type": "drink",
+      "category": "nước ép",
+      "available": true,
+      "options": [
+        "không đường",
+        "ít đá"
+      ]
+    }
+  ],
+  "global_options": {
+    "food_common": {
+      "options": [
+        "cay",
+        "không cay",
+        "ít muối",
+        "thêm ớt",
+        "không hành"
+      ]
+    },
+    "drink_common": {
+      "options": [
+        "ít đá",
+        "nhiều đá",
+        "không đá",
+        "ít đường",
+        "nhiều đường",
+        "nóng",
+        "lạnh"
+      ]
+    },
+    "all_common": {
+      "options": [
+        "gói mang đi",
+        "ăn tại chỗ",
+        "giao nhanh"
+      ]
+    }
+  },
+  "order_history": [],
+  "current_order": {
+    "order_id": "CURRENT",
+    "user": "default_user",
+    "items": [
+      {
+        "dish_id": 1,
+        "dish_name": "phở bò",
+        "type": "food",
+        "quantity": 3,
+        "price": 50000,
+        "options": [],
+        "subtotal": 150000
+      }
+    ],
+    "total": 150000,
+    "status": "draft"
+  }
+}
