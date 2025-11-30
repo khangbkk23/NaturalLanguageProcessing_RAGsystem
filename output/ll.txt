@@ -1,0 +1,66 @@
+============================================================
+HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
+Thời gian: 2025-12-01 00:25:51
+Dạng luận lý và ngữ nghĩa thủ tục
+============================================================
+
+Câu 1: Có những món gì trong menu ?
+Logical Form: (EXIST-QUERY 's1' 3)
+Procedure: LIST_ALL_ITEMS()
+
+------------------------------------------------------------
+
+Câu 2: Cơm tấm giá bao nhiêu ?
+Logical Form: (PRICE-QUERY 's1' 3)
+Procedure: GET_PRICE(cơm_tấm)
+
+------------------------------------------------------------
+
+Câu 3: Có món bún chả không ?
+Logical Form: (YN-QUERY 's1' 2)
+Procedure: CHECK_AVAILABILITY(bún_chả)
+
+------------------------------------------------------------
+
+Câu 4: Thêm 2 cơm tấm vào đơn .
+Logical Form: (STATEMENT 's1' 2)
+Procedure: ADD_TO_CART(cơm_tấm, 2)
+
+------------------------------------------------------------
+
+Câu 5: Thêm 1 cà phê sữa vào đơn .
+Logical Form: (STATEMENT 's1' 2)
+Procedure: ADD_TO_CART(cà_phê_sữa, 1)
+
+------------------------------------------------------------
+
+Câu 6: Tôi đã đặt những món gì ?
+Logical Form: (WH-QUERY 's1' 2)
+Procedure: GET_ORDER_HISTORY()
+
+------------------------------------------------------------
+
+Câu 7: Thêm 3 nước cam vào đơn .
+Logical Form: (STATEMENT 's1' 2)
+Procedure: ADD_TO_CART(nước_cam, 3)
+
+------------------------------------------------------------
+
+Câu 8: Reset giỏ hàng .
+Logical Form: (COMMAND RESET)
+Procedure: RESET_CART()
+
+------------------------------------------------------------
+
+Câu 9: Thêm 1 gà rán vào đơn .
+Logical Form: (STATEMENT 's1' 2)
+Procedure: ADD_TO_CART(gà_rán, 1)
+
+------------------------------------------------------------
+
+Câu 10: Tôi đã đặt những món gì ?
+Logical Form: (WH-QUERY 's1' 2)
+Procedure: GET_ORDER_HISTORY()
+
+------------------------------------------------------------
+

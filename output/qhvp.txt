@@ -1,0 +1,82 @@
+============================================================
+HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
+Thời gian: 2025-12-01 00:25:51
+Quan hệ văn phạm
+============================================================
+
+Câu 1: Có những món gì trong menu ?
+Dependencies:
+  - "ROOT" --root -> "có"
+  - "có" --query -> "những_món_gì"
+  - "trong" --pobj -> "menu"
+  - "menu" --punc -> "?"
+
+------------------------------------------------------------
+
+Câu 2: Cơm tấm giá bao nhiêu ?
+Dependencies:
+  - "ROOT" --root -> "cơm_tấm"
+  - "cơm_tấm" --attr -> "giá"
+  - "giá" --attr -> "bao_nhiêu"
+
+------------------------------------------------------------
+
+Câu 3: Có món bún chả không ?
+Dependencies:
+  - "ROOT" --root -> "có"
+  - "có" --dobj -> "món"
+  - "món" --nmod -> "bún_chả"
+  - "bún_chả" --yesno -> "không"
+
+------------------------------------------------------------
+
+Câu 4: Thêm 2 cơm tấm vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "cơm_tấm" --quan -> "2"
+  - "thêm" --dobj -> "cơm_tấm"
+
+------------------------------------------------------------
+
+Câu 5: Thêm 1 cà phê sữa vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "cà_phê_sữa" --quan -> "1"
+  - "thêm" --dobj -> "cà_phê_sữa"
+
+------------------------------------------------------------
+
+Câu 6: Tôi đã đặt những món gì ?
+Dependencies:
+  - "đặt" --query -> "những_món_gì"
+
+------------------------------------------------------------
+
+Câu 7: Thêm 3 nước cam vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "nước_cam" --quan -> "3"
+  - "thêm" --dobj -> "nước_cam"
+
+------------------------------------------------------------
+
+Câu 8: Reset giỏ hàng .
+Dependencies:
+  - "reset" --dobj -> "giỏ_hàng"
+
+------------------------------------------------------------
+
+Câu 9: Thêm 1 gà rán vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "gà_rán" --quan -> "1"
+  - "thêm" --dobj -> "gà_rán"
+
+------------------------------------------------------------
+
+Câu 10: Tôi đã đặt những món gì ?
+Dependencies:
+  - "đặt" --query -> "những_món_gì"
+
+------------------------------------------------------------
+

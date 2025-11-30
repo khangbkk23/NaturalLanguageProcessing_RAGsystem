@@ -129,34 +129,16 @@
     "user": "default_user",
     "items": [
       {
-        "dish_id": 101,
-        "dish_name": "trà sữa",
-        "type": "drink",
-        "quantity": 90,
-        "price": 25000,
-        "options": [],
-        "subtotal": 2250000
-      },
-      {
         "dish_id": 4,
         "dish_name": "gà rán",
         "type": "food",
-        "quantity": 36,
+        "quantity": 1,
         "price": 65000,
         "options": [],
-        "subtotal": 2340000
-      },
-      {
-        "dish_id": 1,
-        "dish_name": "phở bò",
-        "type": "food",
-        "quantity": 5,
-        "price": 50000,
-        "options": [],
-        "subtotal": 250000
+        "subtotal": 65000
       }
     ],
-    "total": 4840000,
+    "total": 65000,
     "status": "draft"
   }
 }

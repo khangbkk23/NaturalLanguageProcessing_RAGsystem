@@ -4,8 +4,7 @@ from datetime import datetime
 
 class OutputWriter:
     def __init__(self, output_dir='output'):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.output_dir = os.path.join(base_dir, output_dir)
+        self.output_dir = os.path.abspath(output_dir)
         os.makedirs(self.output_dir, exist_ok=True)
         
         self.qhnn_file = os.path.join(self.output_dir, 'qhnn.txt')

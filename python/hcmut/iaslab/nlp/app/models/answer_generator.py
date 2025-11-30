@@ -14,10 +14,6 @@ class AnswerGenerator:
         self.db = db
 
     def execute_and_answer(self, procedure: Procedure) -> str:
-        """
-        Input: Procedure(name='GET_PRICE', args=['phở_bò'])
-        Output: "Phở bò có giá 50,000 VNĐ."
-        """
         cmd = procedure.name
         args = procedure.args
 
@@ -77,11 +73,9 @@ class AnswerGenerator:
             raw_qty = args[1] if len(args) > 1 else "1"
             qty = 1
             raw_str = str(raw_qty).lower().strip()
-            
-            # Case 1: Là số (digit)
+
             if raw_str.isdigit():
                 qty = int(raw_str)
-            # Case 2: Là chữ (text)
             elif raw_str in text2num:
                 qty = text2num[raw_str]
             else:

@@ -1,8 +1,7 @@
-# python/hcmut/iaslab/nlp/app/main.py
+# python/hcmut/iaslab/nlp/app/main2.py
 import sys
 import os
 
-# Thêm đường dẫn để import được package models
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import models.data as dt
@@ -14,7 +13,6 @@ from models.database import RestaurantDatabase
 from models.answer_generator import AnswerGenerator
 from output_writer import OutputWriter
 
-# --- HÀM XỬ LÝ 1 CÂU (Dùng chung cho cả 2 chế độ) ---
 def process_pipeline(user_input, query_id, generator, writer):
     print(f"\n[{query_id}] USER: {user_input}")
     print("=" * 60)
@@ -47,8 +45,7 @@ def process_pipeline(user_input, query_id, generator, writer):
     answer = generator.execute_and_answer(procedure)
     print(f"KelvinCook Take Order: {answer}")
     print("=" * 60)
-    
-    # Ghi log ra file
+
     writer.write_query(
         query_num=query_id,
         user_input=user_input,
@@ -84,8 +81,8 @@ def main():
 
     # CHẾ ĐỘ 2: BATCH MODE
     if choice == '2':
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        input_path = os.path.join(base_dir, '../../input/sentences.txt')
+        cwd = os.getcwd()
+        input_path = os.path.join(cwd, 'input', 'sentences.txt')
         
         queries = []
         if os.path.exists(input_path):
@@ -99,9 +96,34 @@ def main():
         print(f"Bắt đầu xử lý {len(queries)} câu truy vấn...\n")
         
         for i, query in enumerate(queries, 1):
+            if 'reset' in query.lower() or 'xóa giỏ' in query.lower():
+                db.data['current_order'] = {
+                    'order_id': 'CURRENT', 'user': 'default_user', 
+                    'items': [], 'total': 0, 'status': 'draft'
+                }
+                db.save_database()
+                
+                print(f"\n[{i}] USER: {query}")
+                print("=" * 60)
+                print("SYSTEM COMMAND DETECTED: RESET CART")
+                print("-" * 60)
+                print("KelvinCook Take Order: Đã xóa sạch giỏ hàng.")
+                print("=" * 60)
+
+                writer.write_query(
+                    query_num=i,
+                    user_input=query,
+                    tokens=["reset", "giỏ_hàng", "."],
+                    dependencies=['"reset" --dobj -> "giỏ_hàng"'],
+                    relations=['(s1 PRED reset)', '(s1 THEME giỏ_hàng)'],
+                    logical_form="(COMMAND RESET)",
+                    procedure="RESET_CART()",
+                    answer="Đã xóa sạch giỏ hàng."
+                )
+                continue
+            # -------------------------------------
+
             process_pipeline(query, i, generator, writer)
-            
-        print(f"\nĐã xử lý xong toàn bộ danh sách!")
         print(writer.get_summary())
 
     # CHẾ ĐỘ 1: INTERACTIVE MODE
