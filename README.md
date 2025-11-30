@@ -14,57 +14,9 @@
 
 ## 2. Mục tiêu & Phạm vi BTL phần II
 
-Trong phần này, hệ thống tập trung vào **Xử lý ngôn ngữ tự nhiên dựa trên văn phạm phi ngữ cảnh (CFG)** và **thuật toán phân tích cú pháp Earley**. Bao gồm ba nhiệm vụ chính:
+Hệ thống này là phần mở rộng nâng cao tiếp theo của bài tập lớn, tập trung vào việc hiểu ngữ nghĩa sâu sắc của câu lệnh tiếng Việt và thực thi các hành động tương ứng trên cơ sở dữ liệu giả lập. Không chỉ dừng lại ở việc nhận diện từ khóa, hệ thống hướng tới việc mô phỏng khả năng hiểu ngôn ngữ của con người trong miền ứng dụng cụ thể là đặt món ăn nhà hàng.
 
-### 2.1. Xây dựng tập luật và văn phạm cho miền đặt món ăn online
-
-- Thiết kế và hiện thực một **Context-Free Grammar (CFG)** mô tả được các kiểu câu phổ biến trong ngữ cảnh khách hàng đặt món ăn, đồ uống tại nhà hàng (tiếng Việt).
-- Văn phạm phải:
-  - Biểu diễn được các thành phần cơ bản như: **món ăn, đồ uống, số lượng, đơn vị, tùy chọn (ít đá, nhiều đường, size lớn/nhỏ), thời gian giao, tên quán,…**
-  - Hỗ trợ nhiều kiểu cấu trúc câu: **yêu cầu, đặt món, hỏi thông tin, hủy/đổi đơn, ...**
-- **Input:** dữ liệu grammar nội bộ (ví dụ: file `data/grammar.txt` trong thư mục dự án).
-- **Output chuẩn:**  
-  File văn phạm sau khi hoàn thiện và sử dụng trong hệ thống được lưu tại:
-
-  ```text
-  output/grammar.txt
-  ```
-### 2.2. Viết giải thuật sinh câu từ CFG (Sentence Generator)
-
-*   Xây dựng **bộ sinh câu** dựa trên văn phạm đã thiết kế ở mục 2.1.
-    
-*   Mục tiêu:
-    
-    *   **Tự động sinh ra các câu tiếng Việt hợp lệ theo CFG**.
-        
-    *   Dùng các câu này để:
-        
-        *   Mô phỏng các câu mà khách hàng có thể nhập khi đặt món online.
-            
-        *   Kiểm tra độ bao phủ và tính hợp lý của văn phạm.
-            
-*   Bộ sinh câu cần có cơ chế giới hạn số lượng câu sinh ra **(tối đa 10.000 câu)**.
-    
-*   **Input:** văn phạm CFG đã xây dựng.
-    
-*   **Output**: ghi vào trong: 
-`output/samples.txt` (Giới hạn tối đa: **10.000 câu**)
-
-### 2.3. Xây dựng bộ phân tích cú pháp (Parser)
-
-*   Ở đây, em sử dụng thuật toán **Earley Parser** để phân tích cú pháp các câu đầu vào trong miền đặt món ăn online mà tránh phụ thuộc vào thư viện có sẵn.
-    
-*   Nhiệm vụ:
-    
-    *   Nhận các câu tiếng Việt trong `input/sentences.txt`
-        
-    *   Kiểm tra câu đó có phù hợp với CFG hay không.
-        
-    *   Nếu phù hợp, dựng lại **cây phân tích cú pháp (parse tree)** dựa trên các bước của thuật toán Earley. Với mỗi câu đầu vào, hệ thống ghi ra một dòng kết quả tương ứng trong: `output/parse-results.txt`
-    
-    *   Nếu câu **hợp lệ theo văn phạm** → ghi cấu trúc **cây cú pháp** (parse tree), thường ở dạng s-expression.
-        
-    *   Nếu câu không hợp lệ / không phân tích được → ghi:`()`
+Mục tiêu cốt lõi của hệ thống không chỉ dừng lại ở việc phân tích cú pháp để xác định cấu trúc ngữ pháp của câu, mà còn chuyển đổi cây cú pháp đó thành các biểu diễn ngữ nghĩa trừu tượng. Nhờ đó, máy tính có thể thực sự hiểu ý định và các thông tin chi tiết trong câu hỏi hoặc yêu cầu của người dùng, từ đó đưa ra phản hồi chính xác và thực hiện các tác vụ nghiệp vụ như tra cứu giá, kiểm tra món, hay cập nhật giỏ hàng.
 
 ## 3. Cấu trúc thư mục & Môi trường thực thi
 
@@ -73,401 +25,201 @@ Trong phần này, hệ thống tập trung vào **Xử lý ngôn ngữ tự nhi
 - **Python**: phiên bản >= 3.8  
 - Thư viện chuẩn Python:
   - `os`, `re`, `random`, `collections`, `itertools`, `sys`
-- **Không sử dụng** các thư viện nặng như `numpy`, `pandas` cho phần lõi của BTL Phần I.
 
 ### 3.2. Cấu trúc thư mục
 
 ```text
-python/
-└── hcmut/
-    └── iaslab/
-        └── nlp/
-            ├── app/
-            │   ├── earley_parser.py   # Cài đặt thuật toán Earley
-            │   ├── generator.py       # Logic sinh câu từ CFG
-            │   ├── grammar.py         # Định nghĩa lớp CFG & quản lý Rule
-            │   ├── parser.py          # Xử lý tác vụ parse câu
-            │   ├── utils.py           # Hàm tiện ích, load lexicon, config
-            │   └── main.py            # Điểm vào chính (entry point)
-            └── data/
-                ├── grammar.txt        # File grammar chính (CFG)
-                ├── food_names.txt     # Từ vựng: món ăn
-                ├── drink_names.txt    # Từ vựng: đồ uống
-                ├── common_opts.txt    # Từ vựng: tùy chọn chung (đường, đá,...)
-                └── ...                # Các file từ vựng khác (đơn vị, quán,...)
-
-input/
-└── sentences.txt                      # Danh sách câu đầu vào cần parse
-
-2311402/
-└── output/
-    ├── samples.txt                    # Các câu sinh ra từ CFG
-    └── parse-results.txt              # Kết quả cây phân tích cú pháp
+2311402/                        
+├── input/
+│   └── sentences.txt           # File chứa các câu truy vấn mẫu
+├── output/                     # Thư mục chứa kết quả đầu ra
+│   ├── qhnn.txt                # Quan hệ ngữ nghĩa
+│   ├── qhvp.txt                # Quan hệ văn phạm
+│   ├── ll.txt                  # Dạng luận lý & Ngữ nghĩa thủ tục
+│   └── answer.txt              # Câu trả lời cuối cùng của hệ thống
+├── python/                     # Source code chính
+│   ├── hcmut/iaslab/nlp/app/   # Package code
+│   │   ├── models/             # Chứa các module xử lý NLP
+│   │   │   ├── data.py             # Dữ liệu từ vựng & POS Tagging
+│   │   │   ├── maltparser.py       # Bộ phân tích cú pháp phụ thuộc
+│   │   │   ├── grammar_relation.py # Chuyển đổi Parse Tree -> Semantic Relations
+│   │   │   ├── logical_form.py     # Chuyển đổi Relations -> Logical Form
+│   │   │   ├── semantic_procedure.py # Chuyển đổi Logical Form -> Procedure
+│   │   │   ├── database.py         # Quản lý Menu & Giỏ hàng
+│   │   │   └── answer_generator.py # Sinh câu trả lời tự nhiên
+│   │   ├── main.py             # File chạy chính
+│   │   └── output_writer.py    # Ghi log ra file output
+│   ├── data/                   # Dữ liệu tĩnh
+│   │   ├── grammar.txt         # Tập luật văn phạm phụ thuộc (Dependency Grammar Rules)
+│   │   └── menu.json           # Dữ liệu Menu & Lịch sử đặt hàng
+│   ├── Dockerfile              # Cấu hình Docker image
+│   └── requirements.txt        # Các thư viện Python cần thiết
+├── util.sh                     # Script tiện ích để chạy, test và đóng gói
+└── README.md                   # Hướng dẫn sử dụng
 
 ```
 
 ## 4. Chức năng chính của hệ thống
-#### 4.1. Nạp văn phạm & quản lý từ vựng
 
-**File chính**: `grammar.py`, `utils.py`
+### 4.1. Quy trình xử lý (Pipeline)
 
-Hệ thống hỗ trợ:
+Hệ thống hoạt động theo mô hình đường ống (pipeline) gồm 5 bước:
 
-- Nạp **grammar cơ bản** từ `data/grammar.txt`.
-- Mở rộng grammar bằng **lexicon động** (món ăn, đồ uống, đơn vị, tên quán...).
-
-**Hàm trọng tâm** (trong `utils.py`):
-
-```python
-load_grammar_with_lexicons(grammar_file, lexicon_config)
-```
-
-**Chức năng chính:**
-
-*   Đọc các luật cấu trúc từ `grammar.txt`.
+1.  **Tokenization & POS Tagging (`data.py`):**
     
-*   Thay thế các non-terminal đặc biệt (vd: `\_DO\_AN\_`, `\_DO\_UONG\_`, `\_TEN\_QUAN\_`, `\_DON\_VI\_`,…) bằng danh sách từ vựng từ những file tương ứng trong thư mục `data/`.
-    
-*   Sử dụng `simple\_tokenizer` tự xây dựng để tách từ thống nhất với quá trình parse.
-    
-
-**Ý nghĩa:**
-
-*   Cho phép **thay đổi domain từ vựng** (món mới, đồ uống mới…) chỉ bằng cách chỉnh file `.txt` mà **không cần sửa code** hay grammar.
-    
-*   Grammar vừa mang tính **cấu trúc**, vừa linh hoạt theo dữ liệu thực tế.
-    
-
-### 4.2. Bộ sinh câu từ CFG (`generator.py`)
-
-**Mục tiêu**: Tự động sinh các câu tiếng Việt đúng theo CFG, mô phỏng lời nói/nhắn tin của khách đặt món.
-
-*   Hàm chính:
-    
-
-```python
-run_generation_task(limit=10000)
-```
-
-**Chức năng:**
-
-* Nạp đầy đủ grammar (bao gồm rule + lexicon).
+    *   Tách câu thành các tokens.
         
-**Ghi kết quả:** 
-Toàn bộ câu sinh ra sẽ được ghi vào:
-```
-2311402/output/samples.txt
-``` 
-
-**Kết quả thực tế:**
-
-*   Hệ thống sinh được nhiều mẫu câu đa dạng.
+    *   Gán nhãn từ loại (POS tags) như NOUN, VERB, NAME dựa trên từ điển.
         
-*   Các mẫu câu được dùng để:
+2.  **Dependency Parsing (`maltparser.py`):**
     
-    *   Kiểm tra **độ bao phủ** của grammar.
+    *   Sử dụng thuật toán MaltParser.
         
-    *   Test nhanh **Earley Parser** với lượng dữ liệu lớn.
+    *   Đọc tập luật từ `data/grammar.txt` để xác định quan hệ phụ thuộc giữa các từ.
+        
+    *   **Output:** Cây cú pháp phụ thuộc (ghi vào `qhvp.txt`).
+        
+3.  **Semantic Analysis (`grammar\_relation.py`, `logical\_form.py`):**
+    
+    *   **Relationalize:** Chuyển đổi cây cú pháp thành danh sách các quan hệ ngữ nghĩa (ví dụ: (s1 AGENT phở\_bò)). **Output:** `qhnn.txt`.
+        
+    *   **Logicalize:** Tổng hợp các quan hệ thành biểu diễn Logic (Logical Form) có cấu trúc (ví dụ: `(PRICE-QUERY 's1' ...)`).
+        
+4.  **Procedural Semantics (`semantic\_procedure.py`):**
+    
+    *   Ánh xạ Logical Form sang thủ tục thực thi cụ thể.
+        
+    *   Ví dụ: `GET\_PRICE(phở\_bò)`, `ADD\_TO\_CART(trà\_sữa, 2)`.
+        
+    *   **Output:** `ll.txt`.
+        
+5.  **Execution & Response (answer\_generator.py):**
+    
+    *   Thực thi thủ tục trên Database.
+        
+    *   Sinh câu trả lời tiếng Việt tự nhiên.
+        
+    *   **Output:** answer.txt.
         
 
-### 4.3. Bộ phân tích cú pháp Earley (`earley\_parser.py`)
+### 4.2. Các truy vấn hỗ trợ
 
-**Mục tiêu**: Cài đặt **thuật toán Earley** cho phép phân tích cú pháp với:
+Hệ thống hỗ trợ 5 loại câu hỏi theo yêu cầu đề bài:
 
-*   Văn phạm phi ngữ cảnh **có thể mơ hồ** (*ambiguous CFG*).
+1.  **Hỏi Menu:** "Có những món nào trong menu?", "Quán có món gì?"
     
-*   Hỗ trợ cả:
+2.  **Hỏi Giá:** "Phở bò giá bao nhiêu?", "Giá trà sữa là bao nhiêu?"
     
-    *   **Predictor**: dự đoán những rule tiếp theo có thể xuất hiện.
-        
-    *   **Scanner**: kiểm tra token hiện tại có khớp terminal không.
-        
-    *   **Completer**: hoàn thiện một constituent và đẩy tiến dấu chấm `·` trong các state khác.
-        
-
-**Lớp chính**: `EarleyParser`
-
-**Một số phương thức quan trọng:**
-
-*   `parse(tokens)`:
+3.  **Kiểm tra món:** "Có món gà rán không?", "Còn trà sữa không?"
     
-    *   Khởi tạo *bảng Earley (chart)*.
-        
-    *   Chạy vòng lặp qua từng vị trí token.
-        
-    *   Gọi lần lượt **`\_predictor**, **\_scanner**, **\_completer`**.
-        
-*   `\_predictor(step)`: mở rộng các rule có non-terminal ngay sau dấu chấm.
+4.  **Xem lịch sử / Giỏ hàng:** "Tôi đã đặt những món gì?", "Kiểm tra đơn hàng."
     
-*   `\_scanner(step)`: nếu ký hiệu sau dấu chấm là terminal, kiểm tra có khớp token hiện tại không.
+5.  **Đặt món:** "Thêm 1 ly trà sữa vào đơn.", "Cho 2 phần phở bò."
     
-*  ` \_completer(step)`: khi một rule hoàn tất, cập nhật các state đã chờ non-terminal đó.
-    
-*   `build\_parse\_tree()`:
-    
-    *   Từ các **back-pointer**, dựng lại cây phân tích cú pháp cho câu đã parse thành công.
-        
 
-**Ý nghĩa:**
+## 5. Hướng dẫn sử dụng
+----------------------------------
 
-*   Earley Parser linh hoạt, phù hợp với:
-    
-    *   Câu không cố định độ dài.
-        
-    *   Văn phạm phức tạp, nhiều dạng câu (câu hỏi, câu nhờ vả, câu mệnh lệnh, có thời gian, có tùy chọn món…).
-        
+Hệ thống cung cấp script util.sh để đơn giản hóa việc chạy và kiểm thử.
 
-### 4.4. Tác vụ phân tích câu (`parser.py`)
+**Trước khi chạy, cấp quyền thực thi:**
 
-**Hàm chính**: `run\_parser\_task()`
-
-**Chức năng:**
-
-1.  Đọc danh sách câu từ: 
-```
-input/sentences.txt
-```
-    
-4.  Tiền xử lý & tokenization.
-    
-5.  Với mỗi câu:
-    
-    *   Gọi `EarleyParser.parse(tokens)`.
-        
-    *   Nếu parse thành công thì dựng cây cú pháp.
-        
-    *   Nếu thất bại thì ghi `()` để biểu diễn “không phân tích được” theo yêu cầu đề bài.
-        
-6.  Ghi kết quả vào:
-```
-2311402/output/parse-results.txt
-```
-
-**Dạng kết quả:**
-
-*   Mỗi dòng tương ứng với một câu trong `sentences.txt`.
-    
-```
-(Sentences (Sentence (BasicSentence (Subject (Pronoun 'tôi')) (Predicate (VerbPhrase (VerbStructure (ModalVerb 'muốn') (VerbCore (Verb (OrderVerb 'đặt'))) (NounPhrase (FoodPhrase (FoodCore (Quantifier (_NUMBER_ '2')) (Unit (_DON_VI_ 'phần')) (FoodName (_MON_AN_MAN_ 'phở' 'bò'))))))))) (DeliveryTimePhrase 'giao' 'lúc' (TimeExpression (_NUMBER_ '12') 'giờ'))))
-```
-
-Hoặc nếu không parse được:
-`   ()   `
-
-## 5. Quy trình chạy chương trình (sử dụng `util.sh`)
-
-Hệ thống có **2 task hoàn toàn độc lập** trong Phần I:
-
-1. **Task 1 – Sinh câu từ CFG**: tạo ra các câu ví dụ đúng grammar, lưu vào `samples.txt`.
-2. **Task 2 – Phân tích cú pháp câu đầu vào**: đọc các câu sẵn có trong `input/sentences.txt`, phân tích bằng Earley Parser và lưu parse tree vào `parse-results.txt`.
-
-Cả hai task đều được điều khiển bằng script **`util.sh`** ở thư mục gốc.
-
-**Lưu ý:** Tất cả lệnh dưới đây đều chạy ở **thư mục gốc của project**, nơi chứa:
-
-> - `python/`
-> - `input/`
-> - `2311402/`
-> - `util.sh`
-> - `README.md`
-
-**Yêu cầu**:
-
-* Hệ điều hành: `Linux/Ubuntu` hoặc `MacOS`.
-
-* Đã cài đặt `Python 3.8+`.
-
-* Đứng tại thư mục gốc (ngang hàng với python/, input/, util.sh).
-
-**Cấp quyền thực thi (chạy 1 lần đầu):**
 ```bash
 chmod +x util.sh
 ```
-**Cách chạy**
-```bash
-./util.sh generate
-```
 
-**Tóm tắt quy trình:**
+### A. Chế độ Tự động (Batch Mode) - Dùng để chấm bài
 
-1.  Tạo thư mục output: `2311402/output/` (nếu chưa tồn tại).
-    
-2.  `cd` vào thư mục `python/`.
+Hệ thống sẽ đọc các câu mẫu trong input/sentences.txt, xử lý lần lượt và xuất toàn bộ kết quả ra thư mục output/.
 
-3. Build Docker image:
-```bash
-docker build -t nlp\_assignment .
-```
-4. Chạy container để gọi các lệnh đi thực thi yêu cầu đề bài:
-```bash
-python3 -m hcmut.iaslab.nlp.app.main generate
-```
-```bash
-python3 -m hcmut.iaslab.nlp.app.main parse
-```
-với:
-* `2311402/output` được mount vào **/src/output**.
-        
-* **input** được mount vào `/src/input`.
-        
-### 5.1. Task 2.2 – Sinh câu từ CFG (Generator)
-
-**Mục tiêu:**  
-Sinh tự động các câu tiếng Việt **đúng theo CFG** để mô phỏng câu của khách đặt món, và ghi vào:
-
-```text
-2311402/output/samples.txt
-```
-**Cách chạy:**
+**Lệnh chạy:**
 
 ```bash
-./util.sh generate
+./util.sh batch
 ```
 
-**Tóm tắt quy trình bên trong `run_generate`:**
+**Kết quả:** Kiểm tra thư mục output/ sau khi chạy xong. Sẽ có đầy đủ 4 file:
 
-1.  Tạo thư mục output: `2311402/output/` (nếu chưa tồn tại).
+*   `qhvp.txt`: Quan hệ văn phạm.
     
-2.  `cd` vào thư mục `python/`.
+*   `qhnn.txt`: Quan hệ ngữ nghĩa.
     
-3. Build Docker image:
+*   `ll.txt`: Dạng luận lý & Thủ tục.
+    
+*   `answer.txt`: Câu trả lời của hệ thống.
+    
+
+### B. Chế độ Tương tác (Interactive Mode) - Dùng để Test/Chat
+
+Cho phép người dùng nhập câu hỏi trực tiếp từ bàn phím để kiểm tra khả năng phản hồi của hệ thống.
+
+**Lệnh chạy:**
+
 ```bash
-docker build -t nlp\_assignment .
-````
-    
-4.  Chạy container để gọi tác vụ sinh câu:
-``` bash
-docker run --rm \
-	-v "$S\_OUT":/src/output \
-	-v "$S\_IN":/src/input \
-	nlp\_assignment python3 -m hcmut.iaslab.nlp.app.main generate
-```
-với:
-    
-    *   2311402/output được mount vào /src/output.
-        
-    *   input được mount vào /src/input.
-        
-
-**Kết quả:**
-* File sinh câu nằm tại:
-```text
-2311402/output/samples.txt
+./util.sh interactive
 ```
 
-### 5.2. Task 2.3 – Phân tích cú pháp các câu đầu vào (Parser)
+*   Sau khi container khởi động, chọn chế độ **Interactive Mode**.
+    
+*   Nhập câu hỏi (ví dụ: "`Phở bò giá bao nhiêu?`").
+    
+*   Gõ reset để xóa giỏ hàng hiện tại.
+    
+*   Gõ quit hoặc exit để thoát chương trình.
+    
 
-**Mục tiêu:**
-Đọc **các câu đã chuẩn bị sẵn** trong: `input/sentences.txt   `
+### C. Đóng gói nộp bài
 
-Sau đó phân tích cú pháp từng câu bằng **Earley Parser**, rồi ghi kết quả parse tree vào:`   2311402/output/parse-results.txt   `
+Lệnh này sẽ tự động chạy Batch Mode một lần để sinh kết quả mới nhất, sau đó nén toàn bộ source code và output vào file .zip.
 
-**Cách chạy:**
 ```bash
-./util.sh parse
-```
+ ./util.sh submit
+ ```
 
-**Tóm tắt quy trình:**
+*   **Kết quả:** File 2311402.zip sẽ được tạo tại thư mục gốc.
+    
 
-1.  Tạo thư mục output: `2311402/output/`.
+## 5. Các truy vấn hỗ trợ (Supported Queries)
+
+Hệ thống hỗ trợ các loại câu hỏi sau (tương ứng với yêu cầu đề bài):
+
+1.  **Hỏi Menu:**
     
-2.  cd vào python/.
-    
-3.  docker build -t nlp\_assignment .
-    
-4.  Chạy container:
-```bash
-docker run --rm \
-    -v "$S_OUT":/src/output \
-    -v "$S_IN":/src/input \
-    nlp_assignment
-```
-            
-5.  Bên trong container:
-    
-    *   Chương trình đọc `input/sentences.txt`.
+    *   "Có những món nào trong menu?"
         
-    *   Parse từng câu bằng **EarleyParser**.
+    *   "Quán có món gì?"
         
-    *   Ghi kết quả vào:
-```text
-2311402/output/parse-results.txt
-```
+2.  **Hỏi giá:**
+    
+    *   "Phở bò giá bao nhiêu?"
         
-
-### 5.3. Tạo file .zip nộp hoàn chỉnh – submit
-
-**Dùng lệnh**
-```   bash 
-./util.sh submit   
-```
-
-để:
-
-1.  Gọi **Task 2.2**: `run\_generate`.
-    
-2.  Gọi **Task 2.3**: `run\_test`.
-    
-3.  Copy `python/hcmut/iaslab/nlp/data/grammar.txt` vào `2311402/output/`.
-    
-4.  Đóng gói toàn bộ thành:
-    
-`   2311402.zip   `
-
-bao gồm:
-
-> - `python/`
-> - `input/`
-> - `2311402/output/`
-> - `util.sh`
-> - `README.md`
-    
-
-Đây là **file nộp chính thức** cho bài tập lớn.
-
-## 6. Đánh giá, Hạn chế & Hướng phát triển
-### 6.1. Ưu điểm
-
-*   Xây dựng được **một grammar rõ ràng**, tách bạch:
-    
-    *   Cấu trúc câu (Subject, Predicate, VerbPhrase, NounPhrase…).
+    *   "Giá trà sữa là bao nhiêu?"
         
-    *   Từ vựng linh hoạt (`Food`, `Drink`, `FoodOption`, `DrinkOption`, `Unit`, `Restaurant`,…).
-        
-*   Cài đặt thành công:
+3.  **Kiểm tra món:**
     
-    *   **CFG Generator** với hai chiến lược sinh câu.
+    *   "Có món gà rán không?"
         
-    *   **Earley Parser** tự viết, có khả năng xử lý grammar mơ hồ.
+    *   "Còn trà sữa không?"
         
-*   Tổ chức mã nguồn:
+4.  **Xem lịch sử / Giỏ hàng:**
     
-    *   Tách thành nhiều module: `grammar.py`, `earley\_parser.py`, `generator.py`, `parser.py`, `utils.py`.
+    *   "Tôi đã đặt những món gì?"
         
-    *   Dễ bảo trì, dễ mở rộng.
+    *   "Kiểm tra đơn hàng."
+        
+5.  **Đặt món (Thêm vào giỏ):**
+    
+    *   "Thêm 1 ly trà sữa vào đơn."
+        
+    *   "Cho 2 phần phở bò."
+        
+    *   "Lấy tôi ba tô bún chả."
         
 
-### 6.2. Hạn chế
+## 6. Thông tin liên hệ
 
-*   Grammar vẫn còn mang tính **mô phỏng**, chưa bao phủ hết:
+*   **Sinh viên:** Bùi Trần Duy Khang
     
-    *   Cách nói “chat” rất tự nhiên của người dùng.
-        
-    *   Các câu rút gọn, câu sai chính tả, viết tắt…
-        
-*   Earley Parser xử lý được nhưng:
+*   **MSSV:** 2311402
     
-    *   **Thời gian chạy** có thể tăng nếu grammar mở rộng quá nhiều và câu quá dài.
-        
-*   Chưa tích hợp:
-    
-    *   Bước **ngữ nghĩa (semantic)** để trích xuất trực tiếp intent, slot (món, số lượng, thời gian…) từ cây cú pháp.
-        
-## 7. Kết luận
-Trong phạm vi BTL Phần I, hệ thống đã:
-
-1.  Xây dựng được **văn phạm phi ngữ cảnh** mô tả bài toán đặt món ăn/đồ uống trực tuyến.
-    
-2.  Cài đặt **Sentence Generator** sinh được số lượng lớn câu đúng grammar.
-    
-3.  Cài đặt thành công **Earley Parser**, phân tích cú pháp các câu đầu vào từ file `input/sentences.txt` và ghi kết quả ra `parse-results.txt`.
+*   **Email:** khang.buitranduycse@hcmut.edu.vn
