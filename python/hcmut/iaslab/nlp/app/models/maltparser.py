@@ -1,29 +1,66 @@
+import os
 import models.data as dt
 from models.data import ROOT, N, V, NAME, Q, PP, YN, NUM, PUNC, DET, ADV, P
-
-RIGHT_ARC = {
-    ROOT: {V: "root", N: "root", NAME: "root"},
-    V: {N: "dobj", Q: "query", PP: "loc", YN: "yesno", NAME: "dobj", PUNC: "punc", P: "subj"},
-    N: {Q: "attr", PP: "nmod", NAME: "nmod", PUNC: "punc", N: "subj"},
-    NAME: {Q: "attr", N: "attr", V: "acl", YN: "yesno", PUNC: "punc"},
-    PP: {N: "pobj", NAME: "pobj"},
-}
-
-LEFT_ARC = {
-    NUM: {NAME: "quan", N: "quan"}, 
-    N: {DET: "det", NAME: "subj", PP: "nmod"},
-    NAME: {},  # Xóa N: "subj" ở đây
-    V: {ADV: "adv", P: "subj", NAME: "subj"},
-    Q: {},
-    PP: {V: "vmod"},
-}
 
 class Dependency:
     def __init__(self, relation: str, head: str, tail: str):
         self.relation = relation; self.head = head; self.tail = tail 
     def __str__(self) -> str: return f"\"{self.head}\" --{self.relation} -> \"{self.tail}\""
 
+# Biến toàn cục lưu luật (Ban đầu rỗng)
+RIGHT_ARC = {}
+LEFT_ARC = {}
+GRAMMAR_LOADED = False
+
+def load_grammar():
+    global RIGHT_ARC, LEFT_ARC, GRAMMAR_LOADED
+    
+    if GRAMMAR_LOADED: return
+
+    # Reset
+    RIGHT_ARC = {}
+    LEFT_ARC = {}
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    grammar_path = os.path.join(base_dir, '../data/grammar.txt')
+    if not os.path.exists(grammar_path):
+        grammar_path = os.path.join(os.getcwd(), 'python/hcmut/iaslab/nlp/data/grammar.txt')
+
+    if not os.path.exists(grammar_path):
+        print(f"Không tìm thấy {grammar_path}. Parser sẽ không hoạt động đúng!")
+        return
+
+    print(f"Đang tải văn phạm từ: {grammar_path}")
+    
+    try:
+        with open(grammar_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'): continue
+                parts = line.split()
+                if len(parts) < 4: continue
+                
+                head_str, rel, dep_str, direction = parts
+                head_pos = getattr(dt, head_str, head_str)
+                dep_pos = getattr(dt, dep_str, dep_str)
+                
+                if direction == 'RIGHT':
+                    if head_pos not in RIGHT_ARC: RIGHT_ARC[head_pos] = {}
+                    RIGHT_ARC[head_pos][dep_pos] = rel
+                elif direction == 'LEFT':
+                    if dep_pos not in LEFT_ARC: LEFT_ARC[dep_pos] = {}
+                    LEFT_ARC[dep_pos][head_pos] = rel
+        
+        GRAMMAR_LOADED = True
+        print(f"Đã tải xong văn phạm.")
+        
+    except Exception as e:
+        print(f"Lỗi khi đọc file grammar: {e}")
+
 def malt_parse_helper(tokens: "list[str]") -> "list[Dependency]":
+    # Tự động load grammar nếu chưa có
+    if not GRAMMAR_LOADED: load_grammar()
+        
     buffer = tokens.copy()
     stack = [ROOT]
     dependencies = []

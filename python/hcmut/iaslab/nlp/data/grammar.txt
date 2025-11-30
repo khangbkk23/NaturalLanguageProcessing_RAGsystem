@@ -1,161 +1,33 @@
-%start Sentences
+ROOT root V RIGHT
+ROOT root N RIGHT
+ROOT root NAME RIGHT
 
-# ================
-# 1. CẤU TRÚC CÂU
-# ================
-Sentences -> Sentence | Sentence Wh
+V dobj N RIGHT
+V dobj NAME RIGHT
+V query Q RIGHT
+V loc PP RIGHT
+V yesno YN RIGHT
+V punc PUNC RIGHT
 
-Sentence -> BasicSentence
-Sentence -> BasicSentence DeliveryTimePhrase
-Sentence -> TimeAdverb BasicSentence
-Sentence -> BasicSentence Wh
+N nmod Q RIGHT
+N nmod PP RIGHT
+N nmod NAME RIGHT
+N punc PUNC RIGHT
 
-BasicSentence -> Subject Predicate
-BasicSentence -> Predicate
-BasicSentence -> DeliveryTimePhrase
+NAME attr N RIGHT
+NAME query Q RIGHT
+NAME acl V RIGHT
+NAME yesno YN RIGHT
+NAME punc PUNC RIGHT
 
-Subject -> NounPhrase
-Subject -> Pronoun
-Predicate -> VerbPhrase | AdjectivePhrase
+PP pobj N RIGHT
+PP pobj NAME RIGHT
 
-# ==============
-# 2. CỤM DANH TỪ
-# ==============
+NUM quan N LEFT
+NUM quan NAME LEFT
 
-NounPhrase -> FoodPhrase
-NounPhrase -> DrinkPhrase
-NounPhrase -> OtherNounPhrase
+N det DET LEFT
+N clf NAME LEFT
+N nmod PP LEFT
 
-# --- Nhánh Đồ ăn ---
-FoodPhrase -> FoodCore
-FoodPhrase -> FoodPhrase FoodModifier
-FoodPhrase -> FoodPhrase Conjunction FoodPhrase
-
-FoodCore -> FoodName
-FoodCore -> Quantifier FoodName
-FoodCore -> Quantifier Unit FoodName
-FoodCore -> Unit FoodName
-FoodCore -> OrderRelated FoodName
-
-FoodModifier -> FoodAdjectivePhrase
-FoodModifier -> CommonAdjectivePhrase
-FoodModifier -> PrepositionalPhrase
-FoodModifier -> PrepositionAfter
-
-# --- Nhánh Đồ uống ---
-DrinkPhrase -> DrinkCore
-DrinkPhrase -> DrinkPhrase DrinkModifier
-DrinkPhrase -> DrinkPhrase Conjunction DrinkPhrase
-
-DrinkCore -> DrinkName
-DrinkCore -> Quantifier DrinkName
-DrinkCore -> Quantifier Unit DrinkName
-DrinkCore -> Unit DrinkName
-DrinkCore -> OrderRelated DrinkName
-
-DrinkModifier -> DrinkAdjectivePhrase
-DrinkModifier -> CommonAdjectivePhrase
-DrinkModifier -> PrepositionalPhrase
-DrinkModifier -> PrepositionAfter
-
-OtherNounPhrase -> OtherCore
-OtherNounPhrase -> OtherNounPhrase Modifier
-
-OtherCore -> OrderRelated | ProperNoun | Pronoun
-
-# ================
-# 3. CỤM ĐỘNG TỪ
-# ================
-
-VerbPhrase -> VerbStructure
-VerbPhrase -> VerbStructure AdjectivePhrase
-VerbPhrase -> VerbStructure DeliveryTimePhrase
-VerbPhrase -> VerbPhrase AdverbAfter_Verb
-VerbPhrase -> VerbPhrase PrepositionalPhrase
-VerbPhrase -> VerbPhrase Conjunction VerbPhrase
-VerbPhrase -> VerbPhrase Conjunction NounPhrase
-VerbPhrase -> VerbStructure Conjunction VerbStructure
-
-# Cấu trúc động từ (Hỗ trợ Modal Verb)
-VerbStructure -> VerbCore
-VerbStructure -> VerbCore NounPhrase
-VerbStructure -> ModalVerb VerbCore
-VerbStructure -> ModalVerb VerbCore NounPhrase
-
-VerbCore -> Verb
-VerbCore -> AdverbBefore_Verb Verb
-
-# -----------------------
-# 4. CÁC THÀNH PHẦN KHÁC
-# -----------------------
-AdjectivePhrase -> Adjective
-AdjectivePhrase -> AdverbBefore_Adjective Adjective
-AdjectivePhrase -> Adjective AdverbAfter_Adjective
-
-FoodAdjectivePhrase -> FoodAdjective
-FoodAdjectivePhrase -> AdverbBefore_Adjective FoodAdjective
-
-DrinkAdjectivePhrase -> DrinkAdjective
-DrinkAdjectivePhrase -> AdverbBefore_Adjective DrinkAdjective
-
-CommonAdjectivePhrase -> CommonAdjective
-
-PrepositionalPhrase -> Preposition NounPhrase
-DeliveryTimePhrase -> giao lúc TimeExpression
-
-Modifier -> PrepositionalPhrase
-Modifier -> AdjectivePhrase
-Modifier -> PrepositionAfter
-
-# ----------
-# 5. TỪ VỰNG
-# ----------
-Verb -> OrderVerb | QueryVerb | ModifyVerb | CancelVerb
-OrderVerb -> đặt | yêu cầu | đặt thêm 
-QueryVerb -> có | xem | kiểm tra | hỏi
-ModifyVerb -> thêm | sửa | đổi
-CancelVerb -> hủy | bỏ | xóa | muốn hủy | huỷ | xoá
-ModalVerb -> muốn | cần | phải | nên | có thể
-
-FoodName -> _DO_AN_
-DrinkName -> _DO_UONG_
-
-FoodAdjective -> _TUY_CHON_DO_AN_
-DrinkAdjective -> _TUY_CHON_DO_UONG_
-CommonAdjective -> _TUY_CHON_CHUNG_
-
-Noun -> FoodName | DrinkName | OrderRelated | TimeRelated
-OrderRelated -> món | đơn | đơn hàng | menu | thực đơn
-TimeRelated -> giờ | phút
-
-Adjective -> FoodAdjective | DrinkAdjective | CommonAdjective | PriceAdjective
-PriceAdjective -> đắt | rẻ | mắc | phải chăng
-
-ProperNoun -> _TEN_QUAN_
-Pronoun -> tôi | mình | em | anh | chị
-Unit -> _DON_VI_
-Quantifier -> _NUMBER_ | NumberWord
-NumberWord -> một | hai | ba | bốn | năm | sáu | bảy | tám | chín | mười | vài | những | các
-
-_NUMBER_ -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 100
-
-# Thời gian
-TimeAdverb -> TimeExpression
-TimeExpression -> hôm nay | hôm qua | ngày mai | bây giờ | lúc _NUMBER_ giờ | lúc _NUMBER_ giờ _NUMBER_ phút | _NUMBER_ giờ | _NUMBER_ giờ _NUMBER_ phút
-
-# Phó từ
-AdverbBefore_Verb -> đã | cũng | chưa | đang | không | sẽ
-AdverbAfter_Verb -> rồi | nhé | nha | ạ
-AdverbBefore_Adjective -> rất | cũng | không | khá | hơi
-AdverbAfter_Adjective -> lắm | quá
-
-# Giới từ
-Preposition -> PrepositionBefore | PrepositionPlace | PrepositionPossessive
-PrepositionPossessive -> của
-PrepositionBefore -> những | các | cái
-PrepositionPlace -> trong | trên | ở | vào | ra
-PrepositionAfter -> này | ấy | kia
-
-# Wh-word & Liên từ
-Wh -> không | hả | sao | vậy | à
-Conjunction -> và | với | cùng | hoặc
+NAME quan NUM LEFT

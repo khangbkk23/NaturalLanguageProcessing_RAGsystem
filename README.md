@@ -12,7 +12,7 @@
 
 ---
 
-## 2. Mục tiêu & Phạm vi BTL phần 1
+## 2. Mục tiêu & Phạm vi BTL phần II
 
 Trong phần này, hệ thống tập trung vào **Xử lý ngôn ngữ tự nhiên dựa trên văn phạm phi ngữ cảnh (CFG)** và **thuật toán phân tích cú pháp Earley**. Bao gồm ba nhiệm vụ chính:
 
