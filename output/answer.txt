@@ -1,6 +1,6 @@
 ============================================================
 HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
-Thời gian: 2025-12-01 16:07:30
+Thời gian: 2025-12-01 16:38:29
 Câu trả lời
 ============================================================
 
@@ -38,12 +38,12 @@ Trả lời: Đã thêm 1 phần sinh tố bơ (ít_sữa) vào đơn.
 
 Câu 7: Tôi đã đặt những món gì ?
 Trả lời: Đơn hàng của bạn gồm:
-- 1 pizza (hải sản): 120,000đ
-- 3 trà đào (cam sả): 105,000đ
-- 1 mì xào (hải sản): 40,000đ
-- 1 trà sữa (trân châu đen): 25,000đ
+- 1 pizza (hải sản, đế mỏng): 120,000đ
+- 3 trà đào (cam sả, size lớn): 105,000đ
+- 1 mì xào (hải sản, ít dầu): 40,000đ
+- 1 trà sữa (trân châu đen, ít đường): 25,000đ
 - 1 gà rán (sốt phô mai): 30,000đ
-- 1 bún bò huế (giò heo, không cay): 50,000đ
+- 1 bún bò huế (giò heo, cay): 50,000đ
 - 2 bánh mì (thịt nướng, không rau): 40,000đ
 - 1 sinh tố bơ (ít sữa): 45,000đ
 Tổng cộng: 455,000đ

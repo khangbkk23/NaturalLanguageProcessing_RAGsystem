@@ -23,14 +23,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Thiết lập Locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# 3. Tạo venv và cài đặt dependencies
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
@@ -47,13 +45,11 @@ LABEL description="NLP Assignment Docker Image - Runtime Stage"
 ENV TZ=Asia/Ho_Chi_Minh
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. Cài đặt Runtime dependencies
 RUN apt-get update && apt-get -y --no-install-recommends install \
     locales \
     default-jre \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Thiết lập Locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG en_US.UTF-8
@@ -64,12 +60,9 @@ ENV LC_ALL en_US.UTF-8
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# 4. Copy mã nguồn
 COPY . /src/
 WORKDIR /src/
 
 ENV PYTHONPATH="/src"
 RUN mkdir -p /src/output
-
-# 5. Lệnh chạy mặc định
 CMD ["python3", "-m", "hcmut.iaslab.nlp.app.main"]
