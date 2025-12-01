@@ -1,3 +1,4 @@
+# python/hcmut/iaslab/nlp/app/models/semantic_procedure.py
 from models.grammar_relation import SEM
 import models.data as dt
 
@@ -10,14 +11,14 @@ def proceduralize(sem: SEM) -> Procedure:
     intent = sem.predicate
     pred = ""
     theme = ""
-    agent = "" # [QUAN TRỌNG] Cần biến này cho câu hỏi giá
+    agent = "" 
     location = ""
-    attr_item = ""
+    options = [] 
     quantity = "1"
     query_word = ""
     has_location_context = False
     
-    # 1. Flatten Tree (Trích xuất dữ liệu)
+    # 1. Flatten Tree
     for child in sem.relations:
         val = str(child.variable) if child.variable else ""
         
@@ -29,13 +30,13 @@ def proceduralize(sem: SEM) -> Procedure:
                 for sub in child.relations:
                     if sub.predicate == "QUANT": 
                         quantity = str(sub.variable)
-        elif child.predicate == "AGENT": # [FIX] Phải bắt thêm Agent
+        elif child.predicate == "AGENT": 
             agent = val
         elif child.predicate == "LOCATION": 
             location = val
             has_location_context = True
         elif child.predicate == "HAS-ATTR": 
-            attr_item = val
+            options.append(val)
         elif child.predicate == "QUERY":
             query_word = val
         elif child.predicate == "FOCUS":
@@ -43,42 +44,40 @@ def proceduralize(sem: SEM) -> Procedure:
 
     # --- MAPPING RULES ---
     
-    # 2. ADD TO CART (Ưu tiên cao nhất)
-    # Chỉ thêm vào giỏ nếu Động từ đúng VÀ Theme là tên món ăn (NAME)
+    # 2. ADD TO CART
     if intent == "STATEMENT" and pred in ["thêm", "cho", "lấy", "đặt", "mua"]:
         if theme and dt.POS.get(theme) == dt.NAME:
-            return Procedure("ADD_TO_CART", [theme, quantity])
+            return Procedure("ADD_TO_CART", [theme, quantity, options])
     
-    # 3. HISTORY (Lịch sử đặt hàng)
-    # Logic: Có từ hỏi "món gì" mà không có địa điểm (menu) HOẶC động từ xem/gọi
+    # 3. HISTORY
     if intent in ["WH-QUERY", "STATEMENT"]:
         is_asking_what = query_word in ["những_món_gì", "món_gì", "gì"]
         if (is_asking_what and not has_location_context) or \
            (pred in ["xem", "gọi"]) or \
            (theme == "đơn_hàng") or \
-           (pred == "đặt" and not theme): # Trường hợp "Tôi đã đặt những gì" (không có theme món ăn)
+           (pred == "đặt" and not theme):
             return Procedure("GET_ORDER_HISTORY", [])
     
-    # 4. LIST MENU (Hỏi thực đơn)
+    # 4. LIST MENU
     if (intent in ["EXIST-QUERY", "WH-QUERY"]) and \
        (theme in ["menu", "thực_đơn"] or 
         location in ["menu", "thực_đơn", "trong"] or
         (query_word == "những_món_gì" and has_location_context)):
         return Procedure("LIST_ALL_ITEMS", [])
 
-    # 5. ASK PRICE (Hỏi giá)
+    # 5. ASK PRICE
     if intent == "PRICE-QUERY":
-        # Ưu tiên Attribute -> Agent -> Theme -> Predicate
-        target = attr_item if attr_item and attr_item != "giá" else theme
-        if not target: target = agent # [FIX] Lấy Agent (Phở bò)
+        # Ưu tiên lấy Option đầu tiên làm target hỏi giá
+        target = options[0] if options else theme 
+        if not target: target = agent
+        if target == "giá": target = theme
         if not target and dt.POS.get(pred) == dt.NAME: target = pred
         
         return Procedure("GET_PRICE", [target])
 
-    # 6. CHECK AVAILABILITY (Kiểm tra món)
+    # 6. CHECK AVAILABILITY
     if intent in ["EXIST-QUERY", "YN-QUERY"]:
         target = theme if theme else agent
-        # Loại trừ các từ chung chung
         if target and target not in ["menu", "món", "gì", "những_món_gì"]:
             return Procedure("CHECK_AVAILABILITY", [target])
 

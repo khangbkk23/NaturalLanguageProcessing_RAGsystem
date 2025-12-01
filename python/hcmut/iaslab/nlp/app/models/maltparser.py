@@ -7,7 +7,6 @@ class Dependency:
         self.relation = relation; self.head = head; self.tail = tail 
     def __str__(self) -> str: return f"\"{self.head}\" --{self.relation} -> \"{self.tail}\""
 
-# Biến toàn cục lưu luật (Ban đầu rỗng)
 RIGHT_ARC = {}
 LEFT_ARC = {}
 GRAMMAR_LOADED = False

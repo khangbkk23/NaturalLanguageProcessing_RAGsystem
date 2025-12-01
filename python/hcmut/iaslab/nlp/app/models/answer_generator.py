@@ -21,11 +21,8 @@ class AnswerGenerator:
         if cmd == "LIST_ALL_ITEMS":
             items = self.db.get_all_items()
             if not items: return "Menu hiện chưa có món nào."
-            
-            # Phân loại để hiển thị đẹp
             food = [i['name'] for i in items if i['type'] == 'food']
             drink = [i['name'] for i in items if i['type'] == 'drink']
-            
             msg = "Thực đơn của quán gồm:\n"
             if food: msg += f"- Món ăn: {', '.join(food)}\n"
             if drink: msg += f"- Đồ uống: {', '.join(drink)}"
@@ -36,7 +33,6 @@ class AnswerGenerator:
             if not args: return "Bạn muốn hỏi giá món nào?"
             item_name = args[0]
             item = self.db.find_item_by_name(item_name)
-            
             if item:
                 return f"Món {item['name']} có giá {item['price']:,} VNĐ."
             return f"Xin lỗi, quán không phục vụ món '{item_name}'."
@@ -46,7 +42,6 @@ class AnswerGenerator:
             if not args: return "Bạn muốn kiểm tra món nào?"
             item_name = args[0]
             item = self.db.find_item_by_name(item_name)
-            
             if item and item['available']:
                 return f"Dạ có, quán có phục vụ món {item['name']} ạ."
             return f"Dạ không, hiện quán không có món '{item_name}'."
@@ -56,7 +51,6 @@ class AnswerGenerator:
             current_order = self.db.get_current_order()
             if not current_order['items']:
                 return "Bạn chưa đặt món nào trong đơn hiện tại."
-            
             msg = "Đơn hàng của bạn gồm:\n"
             for item in current_order['items']:
                 opts = f" ({', '.join(item['options'])})" if item['options'] else ""
@@ -70,20 +64,30 @@ class AnswerGenerator:
                 return "Không rõ món cần thêm."
             
             item_name = args[0]
+            
+            # Xử lý số lượng
             raw_qty = args[1] if len(args) > 1 else "1"
             qty = 1
             raw_str = str(raw_qty).lower().strip()
-
             if raw_str.isdigit():
                 qty = int(raw_str)
             elif raw_str in text2num:
                 qty = text2num[raw_str]
-            else:
-                qty = 1 
             
-            result = self.db.add_to_cart(item_name, qty, options=[])
+            options_list = []
+            if len(args) > 2 and isinstance(args[2], list):
+                options_list = args[2]
+
+            result = self.db.add_to_cart(item_name, qty, options=options_list)
             
             if result['success']:
-                return f"Đã thêm {qty} phần {result['item']['dish_name']} vào đơn."
+                opt_str = f" ({', '.join(options_list)})" if options_list else ""
+                warn_str = ""
+                if result.get('option_warnings'):
+                    warn_str = f"\n⚠️ Note: {'; '.join(result['option_warnings'])}"
+
+                return f"Đã thêm {qty} phần {result['item']['dish_name']}{opt_str} vào đơn.{warn_str}"
+                
             return f"Không thể thêm món: {result['message']}"
+            
         return "Xin lỗi, tôi chưa hiểu ý định của bạn."

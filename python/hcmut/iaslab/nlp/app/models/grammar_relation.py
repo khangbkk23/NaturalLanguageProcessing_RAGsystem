@@ -68,9 +68,8 @@ def relationalize(dependencies: "list[Dependency]") -> "list[Relation]":
             head_pos = dt.POS.get(dep.head)
             tail_pos = dt.POS.get(dep.tail)
             
-            # ← FIX: Bỏ qua nmod nếu head là classifier
             if dep.head in classifier_to_item:
-                continue  # Đã xử lý ở trên
+                continue
             
             if head_pos == dt.N and tail_pos == dt.NAME:
                 for r in relations:

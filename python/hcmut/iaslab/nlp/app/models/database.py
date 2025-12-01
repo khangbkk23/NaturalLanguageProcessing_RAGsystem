@@ -30,7 +30,7 @@ class RestaurantDatabase:
             self._validate_structure(data)
             return data
         except (FileNotFoundError, json.JSONDecodeError):
-            print(f"[DB] Không tìm thấy hoặc lỗi file {self.menu_file}, tạo database mẫu...")
+            print(f"Không tìm thấy hoặc lỗi file {self.menu_file}, tạo database mẫu...")
             return self._create_sample_database()
 
     def save_database(self):
@@ -39,7 +39,7 @@ class RestaurantDatabase:
                 json.dump(self.data, f, ensure_ascii=False, indent=2)
             return True
         except Exception as e:
-            print(f"❌ Lỗi lưu database: {e}")
+            print(f"Lỗi lưu database: {e}")
             return False
 
     def _validate_structure(self, data):

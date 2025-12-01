@@ -1,8 +1,8 @@
+# python/hcmut/iaslab/nlp/app/models/data.py
 from collections import OrderedDict
 import re
 from unicodedata import normalize
 
-# --- CONSTANTS ---
 ROOT = "ROOT"
 N = "NOUN"; V = "VERB"; PP = "PREPOSITION"; Q = "QUERY"; NAME = "NAME"
 PUNC = "PUNC"; YN = "YESNO"; ADV = "ADVERB"; P = "PRONOUN"; DET = "DETERMINER"; NUM = "NUMBER"
@@ -13,21 +13,30 @@ TOKENIZE_DICT = OrderedDict({
     "món gì": "món_gì", "vào đơn": "vào_đơn", "đơn hàng": "đơn_hàng", "thực đơn": "menu",
     "hết hàng": "hết_hàng", "là gì": "là_gì",
     "giỏ hàng": "giỏ_hàng",
+    
     # Món ăn
     "phở bò": "phở_bò", "gà rán": "gà_rán", "trà sữa": "trà_sữa", 
     "bún chả": "bún_chả", "cơm tấm": "cơm_tấm", "cà phê sữa": "cà_phê_sữa", 
     "nước cam": "nước_cam", "bánh mì": "bánh_mì",
     
-    # Option - Mới thêm
+    # Options
+    "size lớn": "size_lớn", "size nhỏ": "size_nhỏ",
+    "bạc xỉu": "bạc_xỉu", "thêm bò": "thêm_bò", "thêm bánh": "thêm_bánh",
+    "đặc biệt": "đặc_biệt",
     "trứng ốp la": "trứng_ốp_la", "thêm thịt": "thêm_thịt", "thêm bún": "thêm_bún",
     "không cay": "không_cay", "ít đường": "ít_đường", "nhiều đường": "nhiều_đường",
     "trân châu đen": "trân_châu_đen", "thạch dừa": "thạch_dừa",
     "ít sữa": "ít_sữa", "nhiều sữa": "nhiều_sữa", "không đường": "không_đường",
     "ít đá": "ít_đá", "nhiều đá": "nhiều_đá", "không đá": "không_đá",
     "ít muối": "ít_muối", "thêm ớt": "thêm_ớt", "không hành": "không_hành",
-    "gói mang đi": "gói_mang_đi", "ăn tại chỗ": "ăn_tại_chỗ", "giao nhanh": "giao_nhanh"
+    "gói mang đi": "gói_mang_đi", "ăn tại chỗ": "ăn_tại_chỗ", "giao nhanh": "giao_nhanh",
+    "sốt phô mai": "sốt_phô_mai",
+    "sốt cay": "sốt_cay",
+    "phô mai": "phô_mai",
+    "đùi": "đùi", "cánh": "cánh", "ức": "ức",
+    "hải sản": "hải_sản", "xúc xích": "xúc_xích",
+    "đế dày": "đế_dày", "đế mỏng": "đế_mỏng",
 })
-
 
 POS = {
     # Động từ
@@ -59,10 +68,15 @@ POS = {
     "nóng": ADJ, "đá": ADJ, "ít_sữa": ADJ, "nhiều_sữa": ADJ,
     "không_đường": ADJ, "ít_đá": ADJ, "nhiều_đá": ADJ, "không_đá": ADJ,
     "ít_muối": ADJ, "thêm_ớt": ADJ, "không_hành": ADJ,
-    "gói_mang_đi": ADJ, "ăn_tại_chỗ": ADJ, "giao_nhanh": ADJ
+    "gói_mang_đi": ADJ, "ăn_tại_chỗ": ADJ, "giao_nhanh": ADJ,
+    "sốt_phô_mai": ADJ,
+    "sốt_cay": ADJ,
+    "phô_mai": ADJ,
+    "đùi": ADJ, "cánh": ADJ, "ức": ADJ,
+    "hải_sản": ADJ, "xúc_xích": ADJ,
+    "đế_dày": ADJ, "đế_mỏng": ADJ,
 }
 
-# Add numbers 0-999
 for i in range(1000):
     POS[str(i)] = NUM
 

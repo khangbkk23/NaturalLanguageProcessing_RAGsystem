@@ -1,91 +1,36 @@
 ============================================================
 HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
-Thời gian: 2025-12-01 11:26:18
+Thời gian: 2025-12-01 15:17:29
 Quan hệ ngữ nghĩa
 ============================================================
 
-Câu 1: Có những món gì trong menu ?
-Tokens: ['có', 'những_món_gì', 'trong', 'menu', '?']
+Câu 1: Tôi đã đặt món gì
+Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
 Relations:
-  - (s1 PRED có)
-  - (s1 QUERY những_món_gì)
-  - (s1 LOCATION menu)
+  - (s1 QUERY món_gì)
 
 ------------------------------------------------------------
 
-Câu 2: Cơm tấm giá bao nhiêu ?
-Tokens: ['cơm_tấm', 'giá', 'bao_nhiêu', '?']
+Câu 2: tôi đã đặt món gì
+Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
 Relations:
-  - (s1 PRED giá)
-  - (s1 THEME cơm_tấm)
-  - (s1 QUERY bao_nhiêu)
+  - (s1 QUERY món_gì)
 
 ------------------------------------------------------------
 
-Câu 3: Có món bún chả không ?
-Tokens: ['có', 'món', 'bún_chả', 'không', '?']
+Câu 3: tôi đặt món phở bò tái
+Tokens: ['tôi', 'đặt', 'món', 'phở_bò', 'tái']
 Relations:
-  - (s1 PRED có)
-  - (s1 THEME bún_chả)
-  - (s1 YESNO không)
+  - (s1 PRED đặt)
+  - (s1 THEME phở_bò)
+  - (phở_bò OF-ITEM tái)
 
 ------------------------------------------------------------
 
-Câu 4: Thêm 2 cơm tấm vào đơn .
-Tokens: ['thêm', '2', 'cơm_tấm', 'vào_đơn', '.']
+Câu 4: tôi đã đặt món gì
+Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
 Relations:
-  - (s1 PRED thêm)
-  - (s1 THEME cơm_tấm)
-  - (cơm_tấm QUANTITY 2)
-
-------------------------------------------------------------
-
-Câu 5: Thêm 1 cà phê sữa vào đơn .
-Tokens: ['thêm', '1', 'cà_phê_sữa', 'vào_đơn', '.']
-Relations:
-  - (s1 PRED thêm)
-  - (s1 THEME cà_phê_sữa)
-  - (cà_phê_sữa QUANTITY 1)
-
-------------------------------------------------------------
-
-Câu 6: Tôi đã đặt những món gì ?
-Tokens: ['tôi', 'đã', 'đặt', 'những_món_gì', '?']
-Relations:
-  - (s1 QUERY những_món_gì)
-
-------------------------------------------------------------
-
-Câu 7: Thêm 3 nước cam vào đơn .
-Tokens: ['thêm', '3', 'nước_cam', 'vào_đơn', '.']
-Relations:
-  - (s1 PRED thêm)
-  - (s1 THEME nước_cam)
-  - (nước_cam QUANTITY 3)
-
-------------------------------------------------------------
-
-Câu 8: Reset giỏ hàng .
-Tokens: ['reset', 'giỏ_hàng', '.']
-Relations:
-  - (s1 PRED reset)
-  - (s1 THEME giỏ_hàng)
-
-------------------------------------------------------------
-
-Câu 9: Thêm 1 gà rán vào đơn .
-Tokens: ['thêm', '1', 'gà_rán', 'vào_đơn', '.']
-Relations:
-  - (s1 PRED thêm)
-  - (s1 THEME gà_rán)
-  - (gà_rán QUANTITY 1)
-
-------------------------------------------------------------
-
-Câu 10: Tôi đã đặt những món gì ?
-Tokens: ['tôi', 'đã', 'đặt', 'những_món_gì', '?']
-Relations:
-  - (s1 QUERY những_món_gì)
+  - (s1 QUERY món_gì)
 
 ------------------------------------------------------------
 
