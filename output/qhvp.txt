@@ -1,32 +1,144 @@
 ============================================================
 HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
-Thời gian: 2025-12-01 15:17:29
+Thời gian: 2025-12-01 16:07:30
 Quan hệ văn phạm
 ============================================================
 
-Câu 1: Tôi đã đặt món gì
+Câu 1: Có những món gì trong menu ?
 Dependencies:
-  - "đặt" --query -> "món_gì"
+  - "ROOT" --root -> "có"
+  - "có" --query -> "những_món_gì"
+  - "trong" --pobj -> "menu"
+  - "menu" --punc -> "?"
 
 ------------------------------------------------------------
 
-Câu 2: tôi đã đặt món gì
+Câu 2: Bún bò huế giá bao nhiêu ?
 Dependencies:
-  - "đặt" --query -> "món_gì"
+  - "ROOT" --root -> "bún_bò_huế"
+  - "bún_bò_huế" --attr -> "giá"
+  - "giá" --nmod -> "bao_nhiêu"
 
 ------------------------------------------------------------
 
-Câu 3: tôi đặt món phở bò tái
+Câu 3: Có món mì xào không ?
 Dependencies:
-  - "đặt" --dobj -> "món"
-  - "món" --nmod -> "phở_bò"
-  - "phở_bò" --attr -> "tái"
+  - "ROOT" --root -> "có"
+  - "có" --dobj -> "món"
+  - "món" --nmod -> "mì_xào"
+  - "mì_xào" --yesno -> "không"
 
 ------------------------------------------------------------
 
-Câu 4: tôi đã đặt món gì
+Câu 4: Thêm 1 bún bò huế giò heo cay vào đơn .
 Dependencies:
-  - "đặt" --query -> "món_gì"
+  - "ROOT" --root -> "thêm"
+  - "bún_bò_huế" --quan -> "1"
+  - "thêm" --dobj -> "bún_bò_huế"
+  - "bún_bò_huế" --attr -> "giò_heo"
+  - "giò_heo" --attr -> "cay"
+
+------------------------------------------------------------
+
+Câu 5: Thêm 2 bánh mì thịt nướng không rau vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "bánh_mì" --quan -> "2"
+  - "thêm" --dobj -> "bánh_mì"
+  - "bánh_mì" --attr -> "thịt_nướng"
+  - "thịt_nướng" --attr -> "không_rau"
+
+------------------------------------------------------------
+
+Câu 6: Thêm 1 sinh tố bơ ít sữa vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "sinh_tố_bơ" --quan -> "1"
+  - "thêm" --dobj -> "sinh_tố_bơ"
+  - "sinh_tố_bơ" --attr -> "ít_sữa"
+
+------------------------------------------------------------
+
+Câu 7: Tôi đã đặt những món gì ?
+Dependencies:
+  - "đặt" --query -> "những_món_gì"
+
+------------------------------------------------------------
+
+Câu 8: Reset giỏ hàng .
+Dependencies:
+  - "reset" --dobj -> "giỏ_hàng"
+
+------------------------------------------------------------
+
+Câu 9: Thêm 1 pizza hải sản đế mỏng vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "pizza" --quan -> "1"
+  - "thêm" --dobj -> "pizza"
+  - "pizza" --attr -> "hải_sản"
+  - "hải_sản" --attr -> "đế_mỏng"
+
+------------------------------------------------------------
+
+Câu 10: Thêm 3 trà đào cam sả size lớn vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "trà_đào" --quan -> "3"
+  - "thêm" --dobj -> "trà_đào"
+  - "trà_đào" --attr -> "cam_sả"
+  - "cam_sả" --attr -> "size_lớn"
+
+------------------------------------------------------------
+
+Câu 11: Thêm 1 mì xào hải sản ít dầu vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "mì_xào" --quan -> "1"
+  - "thêm" --dobj -> "mì_xào"
+  - "mì_xào" --attr -> "hải_sản"
+  - "hải_sản" --attr -> "ít_dầu"
+
+------------------------------------------------------------
+
+Câu 12: Gỏi cuốn giá bao nhiêu ?
+Dependencies:
+  - "ROOT" --root -> "gỏi_cuốn"
+  - "gỏi_cuốn" --attr -> "giá"
+  - "giá" --nmod -> "bao_nhiêu"
+
+------------------------------------------------------------
+
+Câu 13: Có bán bún riêu không ?
+Dependencies:
+  - "ROOT" --root -> "có"
+  - "có" --dobj -> "bún"
+  - "bún" --root -> "riêu"
+
+------------------------------------------------------------
+
+Câu 14: Thêm 1 trà sữa trân châu đen ít đường vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "trà_sữa" --quan -> "1"
+  - "thêm" --dobj -> "trà_sữa"
+  - "trà_sữa" --attr -> "trân_châu_đen"
+  - "trân_châu_đen" --attr -> "ít_đường"
+
+------------------------------------------------------------
+
+Câu 15: Thêm 1 gà rán sốt phô mai vào đơn .
+Dependencies:
+  - "ROOT" --root -> "thêm"
+  - "gà_rán" --quan -> "1"
+  - "thêm" --dobj -> "gà_rán"
+  - "gà_rán" --attr -> "sốt_phô_mai"
+
+------------------------------------------------------------
+
+Câu 16: Tôi đã đặt những món gì ?
+Dependencies:
+  - "đặt" --query -> "những_món_gì"
 
 ------------------------------------------------------------
 

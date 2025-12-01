@@ -13,12 +13,15 @@ N nmod Q RIGHT
 N nmod PP RIGHT
 N nmod NAME RIGHT
 N punc PUNC RIGHT
+N nmod N RIGHT
+N yesno YN RIGHT
 
 NAME attr N RIGHT
 NAME query Q RIGHT
 NAME acl V RIGHT
 NAME yesno YN RIGHT
 NAME punc PUNC RIGHT
+NAME attr ADJ RIGHT
 
 PP pobj N RIGHT
 PP pobj NAME RIGHT

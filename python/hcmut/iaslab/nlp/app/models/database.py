@@ -144,6 +144,7 @@ class RestaurantDatabase:
         for req in requested_options:
             req_clean = req.lower().strip()
             # Check fuzzy
+            req_clean = req_clean.replace('_', ' ')
             match = next((v for v in valid_list if req_clean in v.lower() or v.lower() in req_clean), None)
             if match:
                 validated['valid'].append(match)

@@ -15,18 +15,20 @@ def load_grammar():
     global RIGHT_ARC, LEFT_ARC, GRAMMAR_LOADED
     
     if GRAMMAR_LOADED: return
-
-    # Reset
     RIGHT_ARC = {}
     LEFT_ARC = {}
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    grammar_path = os.path.join(base_dir, '../data/grammar.txt')
+    grammar_path = os.path.join(base_dir, 'data', 'grammar.txt')
+    
+    if not os.path.exists(grammar_path):
+        grammar_path = os.path.join(base_dir, '../data/grammar.txt')
+
     if not os.path.exists(grammar_path):
         grammar_path = os.path.join(os.getcwd(), 'python/hcmut/iaslab/nlp/data/grammar.txt')
 
     if not os.path.exists(grammar_path):
-        print(f"Không tìm thấy {grammar_path}. Parser sẽ không hoạt động đúng!")
+        print(f"Không tìm thấy grammar.txt tại: {grammar_path}")
         return
 
     print(f"Đang tải văn phạm từ: {grammar_path}")
@@ -57,8 +59,8 @@ def load_grammar():
         print(f"Lỗi khi đọc file grammar: {e}")
 
 def malt_parse_helper(tokens: "list[str]") -> "list[Dependency]":
-    # Tự động load grammar nếu chưa có
-    if not GRAMMAR_LOADED: load_grammar()
+    if not GRAMMAR_LOADED:
+        load_grammar()
         
     buffer = tokens.copy()
     stack = [ROOT]
@@ -76,14 +78,12 @@ def malt_parse_helper(tokens: "list[str]") -> "list[Dependency]":
 
         dependency = None
         
-        # ← FIX: Ưu tiên tạo root cho VERB
         if stack_pos == ROOT and buffer_pos == dt.V:
             dependency = Dependency("root", ROOT, buffer_item)
             stack.append(buffer.pop(0))
             dependencies.append(dependency)
             continue
-        
-        # ← FIX: Ưu tiên LEFT_ARC cho V <- P (subj)
+
         if stack_pos == dt.V and buffer_pos == dt.P:
             dependency = Dependency("subj", buffer_item, stack_item)
             stack.pop()

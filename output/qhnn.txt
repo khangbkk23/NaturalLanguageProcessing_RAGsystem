@@ -1,36 +1,167 @@
 ============================================================
 HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
-Thời gian: 2025-12-01 15:17:29
+Thời gian: 2025-12-01 16:07:30
 Quan hệ ngữ nghĩa
 ============================================================
 
-Câu 1: Tôi đã đặt món gì
-Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
+Câu 1: Có những món gì trong menu ?
+Tokens: ['có', 'những_món_gì', 'trong', 'menu', '?']
 Relations:
-  - (s1 QUERY món_gì)
+  - (s1 PRED có)
+  - (s1 QUERY những_món_gì)
+  - (s1 LOCATION menu)
 
 ------------------------------------------------------------
 
-Câu 2: tôi đã đặt món gì
-Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
+Câu 2: Bún bò huế giá bao nhiêu ?
+Tokens: ['bún_bò_huế', 'giá', 'bao_nhiêu', '?']
 Relations:
-  - (s1 QUERY món_gì)
+  - (s1 PRED bún_bò_huế)
+  - (s1 PRED giá)
+  - (s1 THEME bún_bò_huế)
+  - (s1 QUERY bao_nhiêu)
 
 ------------------------------------------------------------
 
-Câu 3: tôi đặt món phở bò tái
-Tokens: ['tôi', 'đặt', 'món', 'phở_bò', 'tái']
+Câu 3: Có món mì xào không ?
+Tokens: ['có', 'món', 'mì_xào', 'không', '?']
 Relations:
-  - (s1 PRED đặt)
-  - (s1 THEME phở_bò)
-  - (phở_bò OF-ITEM tái)
+  - (s1 PRED có)
+  - (s1 THEME mì_xào)
+  - (s1 YESNO không)
 
 ------------------------------------------------------------
 
-Câu 4: tôi đã đặt món gì
-Tokens: ['tôi', 'đã', 'đặt', 'món_gì']
+Câu 4: Thêm 1 bún bò huế giò heo cay vào đơn .
+Tokens: ['thêm', '1', 'bún_bò_huế', 'giò_heo', 'cay', 'vào_đơn', '.']
 Relations:
-  - (s1 QUERY món_gì)
+  - (s1 PRED thêm)
+  - (s1 THEME bún_bò_huế)
+  - (bún_bò_huế QUANTITY 1)
+  - (bún_bò_huế OF-ITEM giò_heo)
+  - (giò_heo ATTR-LINK cay)
+  - (giò_heo OF-ITEM cay)
+
+------------------------------------------------------------
+
+Câu 5: Thêm 2 bánh mì thịt nướng không rau vào đơn .
+Tokens: ['thêm', '2', 'bánh_mì', 'thịt_nướng', 'không_rau', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME bánh_mì)
+  - (bánh_mì QUANTITY 2)
+  - (bánh_mì OF-ITEM thịt_nướng)
+  - (thịt_nướng ATTR-LINK không_rau)
+  - (thịt_nướng OF-ITEM không_rau)
+
+------------------------------------------------------------
+
+Câu 6: Thêm 1 sinh tố bơ ít sữa vào đơn .
+Tokens: ['thêm', '1', 'sinh_tố_bơ', 'ít_sữa', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME sinh_tố_bơ)
+  - (sinh_tố_bơ QUANTITY 1)
+  - (sinh_tố_bơ OF-ITEM ít_sữa)
+
+------------------------------------------------------------
+
+Câu 7: Tôi đã đặt những món gì ?
+Tokens: ['tôi', 'đã', 'đặt', 'những_món_gì', '?']
+Relations:
+  - (s1 QUERY những_món_gì)
+
+------------------------------------------------------------
+
+Câu 8: Reset giỏ hàng .
+Tokens: ['reset', 'giỏ_hàng', '.']
+Relations:
+  - (s1 PRED reset)
+  - (s1 THEME giỏ_hàng)
+
+------------------------------------------------------------
+
+Câu 9: Thêm 1 pizza hải sản đế mỏng vào đơn .
+Tokens: ['thêm', '1', 'pizza', 'hải_sản', 'đế_mỏng', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME pizza)
+  - (pizza QUANTITY 1)
+  - (pizza OF-ITEM hải_sản)
+  - (hải_sản ATTR-LINK đế_mỏng)
+  - (hải_sản OF-ITEM đế_mỏng)
+
+------------------------------------------------------------
+
+Câu 10: Thêm 3 trà đào cam sả size lớn vào đơn .
+Tokens: ['thêm', '3', 'trà_đào', 'cam_sả', 'size_lớn', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME trà_đào)
+  - (trà_đào QUANTITY 3)
+  - (trà_đào OF-ITEM cam_sả)
+  - (cam_sả ATTR-LINK size_lớn)
+  - (cam_sả OF-ITEM size_lớn)
+
+------------------------------------------------------------
+
+Câu 11: Thêm 1 mì xào hải sản ít dầu vào đơn .
+Tokens: ['thêm', '1', 'mì_xào', 'hải_sản', 'ít_dầu', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME mì_xào)
+  - (mì_xào QUANTITY 1)
+  - (mì_xào OF-ITEM hải_sản)
+  - (hải_sản ATTR-LINK ít_dầu)
+  - (hải_sản OF-ITEM ít_dầu)
+
+------------------------------------------------------------
+
+Câu 12: Gỏi cuốn giá bao nhiêu ?
+Tokens: ['gỏi_cuốn', 'giá', 'bao_nhiêu', '?']
+Relations:
+  - (s1 PRED gỏi_cuốn)
+  - (s1 PRED giá)
+  - (s1 THEME gỏi_cuốn)
+  - (s1 QUERY bao_nhiêu)
+
+------------------------------------------------------------
+
+Câu 13: Có bán bún riêu không ?
+Tokens: ['có', 'bún', 'riêu', 'không', '?']
+Relations:
+  - (s1 PRED có)
+  - (s1 THEME bún)
+  - (s1 PRED riêu)
+
+------------------------------------------------------------
+
+Câu 14: Thêm 1 trà sữa trân châu đen ít đường vào đơn .
+Tokens: ['thêm', '1', 'trà_sữa', 'trân_châu_đen', 'ít_đường', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME trà_sữa)
+  - (trà_sữa QUANTITY 1)
+  - (trà_sữa OF-ITEM trân_châu_đen)
+  - (trân_châu_đen ATTR-LINK ít_đường)
+  - (trân_châu_đen OF-ITEM ít_đường)
+
+------------------------------------------------------------
+
+Câu 15: Thêm 1 gà rán sốt phô mai vào đơn .
+Tokens: ['thêm', '1', 'gà_rán', 'sốt_phô_mai', 'vào_đơn', '.']
+Relations:
+  - (s1 PRED thêm)
+  - (s1 THEME gà_rán)
+  - (gà_rán QUANTITY 1)
+  - (gà_rán OF-ITEM sốt_phô_mai)
+
+------------------------------------------------------------
+
+Câu 16: Tôi đã đặt những món gì ?
+Tokens: ['tôi', 'đã', 'đặt', 'những_món_gì', '?']
+Relations:
+  - (s1 QUERY những_món_gì)
 
 ------------------------------------------------------------
 

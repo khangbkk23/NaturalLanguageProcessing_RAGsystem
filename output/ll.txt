@@ -1,28 +1,100 @@
 ============================================================
 HỆ THỐNG ĐẶT MÓN ĂN - KELVINCOOK
-Thời gian: 2025-12-01 15:17:29
+Thời gian: 2025-12-01 16:07:30
 Dạng luận lý và ngữ nghĩa thủ tục
 ============================================================
 
-Câu 1: Tôi đã đặt món gì
-Logical Form: (WH-QUERY 's1' 2)
-Procedure: GET_ORDER_HISTORY()
+Câu 1: Có những món gì trong menu ?
+Logical Form: (EXIST-QUERY 's1' 3)
+Procedure: LIST_ALL_ITEMS()
 
 ------------------------------------------------------------
 
-Câu 2: tôi đã đặt món gì
-Logical Form: (WH-QUERY 's1' 2)
-Procedure: GET_ORDER_HISTORY()
+Câu 2: Bún bò huế giá bao nhiêu ?
+Logical Form: (PRICE-QUERY 's1' 3)
+Procedure: GET_PRICE(bún_bò_huế)
 
 ------------------------------------------------------------
 
-Câu 3: tôi đặt món phở bò tái
+Câu 3: Có món mì xào không ?
+Logical Form: (YN-QUERY 's1' 2)
+Procedure: CHECK_AVAILABILITY(mì_xào)
+
+------------------------------------------------------------
+
+Câu 4: Thêm 1 bún bò huế giò heo cay vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(bún_bò_huế, 1, ['giò_heo', 'cay'])
+
+------------------------------------------------------------
+
+Câu 5: Thêm 2 bánh mì thịt nướng không rau vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(bánh_mì, 2, ['thịt_nướng', 'không_rau'])
+
+------------------------------------------------------------
+
+Câu 6: Thêm 1 sinh tố bơ ít sữa vào đơn .
 Logical Form: (STATEMENT 's1' 3)
-Procedure: ADD_TO_CART(phở_bò, 1, ['tái'])
+Procedure: ADD_TO_CART(sinh_tố_bơ, 1, ['ít_sữa'])
 
 ------------------------------------------------------------
 
-Câu 4: tôi đã đặt món gì
+Câu 7: Tôi đã đặt những món gì ?
+Logical Form: (WH-QUERY 's1' 2)
+Procedure: GET_ORDER_HISTORY()
+
+------------------------------------------------------------
+
+Câu 8: Reset giỏ hàng .
+Logical Form: (COMMAND RESET)
+Procedure: RESET_CART()
+
+------------------------------------------------------------
+
+Câu 9: Thêm 1 pizza hải sản đế mỏng vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(pizza, 1, ['hải_sản', 'đế_mỏng'])
+
+------------------------------------------------------------
+
+Câu 10: Thêm 3 trà đào cam sả size lớn vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(trà_đào, 3, ['cam_sả', 'size_lớn'])
+
+------------------------------------------------------------
+
+Câu 11: Thêm 1 mì xào hải sản ít dầu vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(mì_xào, 1, ['hải_sản', 'ít_dầu'])
+
+------------------------------------------------------------
+
+Câu 12: Gỏi cuốn giá bao nhiêu ?
+Logical Form: (PRICE-QUERY 's1' 3)
+Procedure: GET_PRICE(gỏi_cuốn)
+
+------------------------------------------------------------
+
+Câu 13: Có bán bún riêu không ?
+Logical Form: (STATEMENT 's1' 2)
+Procedure: UNKNOWN_PROCEDURE()
+
+------------------------------------------------------------
+
+Câu 14: Thêm 1 trà sữa trân châu đen ít đường vào đơn .
+Logical Form: (STATEMENT 's1' 4)
+Procedure: ADD_TO_CART(trà_sữa, 1, ['trân_châu_đen', 'ít_đường'])
+
+------------------------------------------------------------
+
+Câu 15: Thêm 1 gà rán sốt phô mai vào đơn .
+Logical Form: (STATEMENT 's1' 3)
+Procedure: ADD_TO_CART(gà_rán, 1, ['sốt_phô_mai'])
+
+------------------------------------------------------------
+
+Câu 16: Tôi đã đặt những món gì ?
 Logical Form: (WH-QUERY 's1' 2)
 Procedure: GET_ORDER_HISTORY()
 

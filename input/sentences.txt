@@ -1,10 +1,16 @@
 Có những món gì trong menu ?
-Cơm tấm giá bao nhiêu ?
-Có món bún chả không ?
-Thêm 2 cơm tấm vào đơn .
-Thêm 1 cà phê sữa vào đơn .
+Bún bò huế giá bao nhiêu ?
+Có món mì xào không ?
+Thêm 1 bún bò huế giò heo cay vào đơn .
+Thêm 2 bánh mì thịt nướng không rau vào đơn .
+Thêm 1 sinh tố bơ ít sữa vào đơn .
 Tôi đã đặt những món gì ?
-Thêm 3 nước cam vào đơn .
 Reset giỏ hàng .
+Thêm 1 pizza hải sản đế mỏng vào đơn .
+Thêm 3 trà đào cam sả size lớn vào đơn .
+Thêm 1 mì xào hải sản ít dầu vào đơn .
+Gỏi cuốn giá bao nhiêu ?
+Có bán bún riêu không ?
+Thêm 1 trà sữa trân châu đen ít đường vào đơn .
 Thêm 1 gà rán sốt phô mai vào đơn .
 Tôi đã đặt những món gì ?

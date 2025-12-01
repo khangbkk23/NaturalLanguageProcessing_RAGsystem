@@ -14,16 +14,15 @@ from models.answer_generator import AnswerGenerator
 from output_writer import OutputWriter
 
 def process_pipeline(user_input, query_id, generator, writer):
-    print(f"\n[{query_id}] USER: {user_input}")
-    print("=" * 60)
+    print(f"\n[{query_id}] Khách: {user_input}")
+    print("-" * 60)
     
-    # 1. Tokenize
+    # 1. Tokenization
     tokens = dt.tokenize(user_input)
     print(f" - 1. Tokens:       {tokens}")
     
     # 2. Parse
     dependencies = malt_parse(user_input)
-    # Format lại string dependency cho gọn
     dep_str = [str(d) for d in dependencies]
     print(f" - 2. Dependencies: {dep_str}")
     
@@ -103,7 +102,7 @@ def main():
                 }
                 db.save_database()
                 
-                print(f"\n[{i}] USER: {query}")
+                print(f"\n[{i}] Khách: {query}")
                 print("=" * 60)
                 print("SYSTEM COMMAND DETECTED: RESET CART")
                 print("-" * 60)

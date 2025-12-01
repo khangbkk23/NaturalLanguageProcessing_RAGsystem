@@ -1,150 +1,352 @@
 {
   "common_options": {
-    "food": ["cay", "không cay", "ít cay", "nhiều cay", "mang về", "tại chỗ", "thêm ớt", "không hành", "ít nước", "nhiều nước"],
-    "drink": ["ít đá", "nhiều đá", "không đá", "ít đường", "nhiều đường", "không đường", "nóng", "lạnh", "mang về", "tại chỗ", "size lớn", "size nhỏ"]
+    "food": [
+      "cay",
+      "không cay",
+      "ít cay",
+      "nhiều cay",
+      "mang về",
+      "tại chỗ",
+      "thêm ớt",
+      "không hành",
+      "ít nước",
+      "nhiều nước"
+    ],
+    "drink": [
+      "ít đá",
+      "nhiều đá",
+      "không đá",
+      "ít đường",
+      "nhiều đường",
+      "không đường",
+      "nóng",
+      "lạnh",
+      "mang về",
+      "tại chỗ",
+      "size lớn",
+      "size nhỏ"
+    ]
   },
   "dishes": [
     {
       "id": 1,
       "name": "phở bò",
       "price": 45000,
-      "category": "food",
+      "type": "food",
       "available": true,
       "description": "Phở bò truyền thống",
-      "specific_options": ["tái", "nạm", "gầu", "viên", "đặc biệt", "thêm bò", "thêm bánh"]
+      "options": [
+        "tái",
+        "nạm",
+        "gầu",
+        "viên",
+        "đặc biệt",
+        "thêm bò",
+        "thêm bánh"
+      ]
     },
     {
       "id": 2,
       "name": "bún chả",
       "price": 40000,
-      "category": "food",
+      "type": "food",
       "available": true,
       "description": "Bún chả Hà Nội",
-      "specific_options": ["thêm bún", "thêm chả", "nem rán"]
+      "options": [
+        "thêm bún",
+        "thêm chả",
+        "nem rán"
+      ]
     },
     {
       "id": 3,
       "name": "cơm gà",
       "price": 35000,
-      "category": "food",
+      "type": "food",
       "available": true,
       "description": "Cơm gà xối mỡ",
-      "specific_options": ["đùi", "cánh", "ức", "thêm cơm", "thêm gà"]
+      "options": [
+        "đùi",
+        "cánh",
+        "ức",
+        "thêm cơm",
+        "thêm gà"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "cơm tấm",
+      "price": 45000,
+      "type": "food",
+      "available": true,
+      "description": "Cơm tấm sườn bì chả",
+      "options": [
+        "sườn",
+        "bì",
+        "chả",
+        "trứng ốp la",
+        "thêm cơm"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "bánh mì",
+      "price": 20000,
+      "type": "food",
+      "available": true,
+      "description": "Bánh mì Sài Gòn",
+      "options": [
+        "thịt nướng",
+        "chả lụa",
+        "pate",
+        "ốp la",
+        "không rau",
+        "thêm ớt"
+      ]
     },
     {
       "id": 6,
       "name": "trà sữa",
       "price": 25000,
-      "category": "drink",
+      "type": "drink",
       "available": true,
       "description": "Trà sữa trân châu",
-      "specific_options": ["trân châu đen", "trân châu trắng", "thạch", "pudding", "kem cheese"]
+      "options": [
+        "trân châu đen",
+        "trân châu trắng",
+        "thạch",
+        "pudding",
+        "kem cheese",
+        "ít đường",
+        "nhiều đường"
+      ]
     },
     {
       "id": 7,
       "name": "cà phê sữa",
       "price": 20000,
-      "category": "drink",
+      "type": "drink",
       "available": true,
       "description": "Cà phê sữa đá",
-      "specific_options": ["ít sữa", "nhiều sữa", "bạc xỉu"]
+      "options": [
+        "ít sữa",
+        "nhiều sữa",
+        "bạc xỉu",
+        "nóng",
+        "đá"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "nước cam",
+      "price": 30000,
+      "type": "drink",
+      "available": true,
+      "description": "Nước cam ép nguyên chất",
+      "options": [
+        "không đường",
+        "ít đường",
+        "ít đá",
+        "không đá"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "trà đào",
+      "price": 35000,
+      "type": "drink",
+      "available": true,
+      "description": "Trà đào cam sả",
+      "options": [
+        "cam sả",
+        "thêm đào",
+        "ít ngọt",
+        "size lớn"
+      ]
     },
     {
       "id": 10,
       "name": "gà rán",
       "price": 30000,
-      "category": "food",
+      "type": "food",
       "available": true,
       "description": "Gà rán giòn",
-      "specific_options": ["đùi", "cánh", "ức", "sốt cay", "sốt phô mai"]
+      "options": [
+        "đùi",
+        "cánh",
+        "ức",
+        "sốt cay",
+        "sốt phô mai"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "bún bò huế",
+      "price": 50000,
+      "type": "food",
+      "available": true,
+      "description": "Bún bò Huế đặc biệt",
+      "options": [
+        "giò heo",
+        "chả cua",
+        "gân",
+        "nạm",
+        "thêm thịt",
+        "cay",
+        "không cay"
+      ]
     },
     {
       "id": 12,
       "name": "pizza",
       "price": 120000,
-      "category": "food",
+      "type": "food",
       "available": true,
       "description": "Pizza Ý",
-      "specific_options": ["hải sản", "xúc xích", "phô mai", "đế dày", "đế mỏng"]
-    }
-  ],
-  "order_history": [
-    { 
-      "item_name": "phở bò", 
-      "quantity": 2, 
-      "options": ["tái", "không hành"] 
-    }
-  ]
-}
-  
-  "order_history": [
+      "options": [
+        "hải sản",
+        "xúc xích",
+        "nhiều phô mai",
+        "đế dày",
+        "đế mỏng"
+      ]
+    },
     {
-      "order_id": "ORD001",
-      "user": "default_user",
-      "items": [
-        {
-          "dish_id": 1,
-          "dish_name": "phở bò",
-          "quantity": 2,
-          "price": 45000,
-          "options": ["tái", "không hành"],
-          "subtotal": 90000
-        },
-        {
-          "dish_id": 6,
-          "dish_name": "trà sữa",
-          "quantity": 1,
-          "price": 25000,
-          "options": ["ít đường", "ít đá", "thêm trân châu"],
-          "subtotal": 25000
-        }
-      ],
-      "total": 115000,
-      "status": "completed",
-      "delivery_time": "12:00",
-      "created_at": "2024-01-15 10:30:00"
+      "id": 13,
+      "name": "mì xào",
+      "price": 40000,
+      "type": "food",
+      "available": true,
+      "description": "Mì xào bò/hải sản",
+      "options": [
+        "bò",
+        "hải sản",
+        "trứng",
+        "rau cải",
+        "ít dầu"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "gỏi cuốn",
+      "price": 10000,
+      "type": "food",
+      "available": true,
+      "description": "Gỏi cuốn tôm thịt",
+      "options": [
+        "tôm thịt",
+        "tai heo",
+        "tương đen",
+        "mắm nêm"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "sinh tố bơ",
+      "price": 45000,
+      "type": "drink",
+      "available": true,
+      "description": "Sinh tố bơ sáp",
+      "options": [
+        "ít sữa",
+        "không đường",
+        "thêm sầu riêng"
+      ]
     }
   ],
-  
+  "order_history": [],
   "current_order": {
     "order_id": "CURRENT",
     "user": "default_user",
-    "items": [],
-    "total": 0,
-    "status": "draft",
-    "delivery_time": null,
-    "created_at": null
+    "items": [
+      {
+        "dish_id": 12,
+        "dish_name": "pizza",
+        "type": "food",
+        "quantity": 1,
+        "price": 120000,
+        "options": [
+          "hải sản"
+        ],
+        "subtotal": 120000
+      },
+      {
+        "dish_id": 9,
+        "dish_name": "trà đào",
+        "type": "drink",
+        "quantity": 3,
+        "price": 35000,
+        "options": [
+          "cam sả"
+        ],
+        "subtotal": 105000
+      },
+      {
+        "dish_id": 13,
+        "dish_name": "mì xào",
+        "type": "food",
+        "quantity": 1,
+        "price": 40000,
+        "options": [
+          "hải sản"
+        ],
+        "subtotal": 40000
+      },
+      {
+        "dish_id": 6,
+        "dish_name": "trà sữa",
+        "type": "drink",
+        "quantity": 1,
+        "price": 25000,
+        "options": [
+          "trân châu đen"
+        ],
+        "subtotal": 25000
+      },
+      {
+        "dish_id": 10,
+        "dish_name": "gà rán",
+        "type": "food",
+        "quantity": 1,
+        "price": 30000,
+        "options": [
+          "sốt phô mai"
+        ],
+        "subtotal": 30000
+      }
+    ],
+    "total": 320000,
+    "status": "draft"
   },
-  
   "users": [
     {
       "user_id": "user_001",
       "name": "default_user",
       "phone": "0123456789",
-      "address": "123 Đường ABC, Q1, TP.HCM"
+      "address": "HCM"
     }
   ],
-  
   "restaurants": [
     {
       "id": 1,
-      "name": "Nhà hàng KelvinCook - Chi nhánh TP.HCM",
-      "address": "456 Lý Thường Kiệt, Phường Diên Hồng",
-      "phone": "028-3838-4848",
-      "rating": 4.5
-    },
-    {
-      "id": 2,
-      "name": "Nhà hàng KelvinCook - Chi nhánh Đồng Tháp",
-      "address": "789 Nguyễn Huệ, Phường Cao Lãnh",
-      "phone": "028-3939-5959",
-      "rating": 4.8
+      "name": "KelvinCook HCM",
+      "rating": 5.0
     }
   ],
-  
   "metadata": {
-    "version": "2.0",
-    "last_updated": "2024-01-16",
+    "version": "2.1",
+    "last_updated": "2024-01-20",
     "currency": "VND"
+  },
+  "global_options": {
+    "food_common": {
+      "options": []
+    },
+    "drink_common": {
+      "options": []
+    },
+    "all_common": {
+      "options": []
+    }
   }
 }
