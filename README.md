@@ -168,7 +168,7 @@ Cho phép người dùng nhập câu hỏi trực tiếp từ bàn phím để k
 *   Gõ quit hoặc exit để thoát chương trình.
     
 
-### C. Đóng gói nộp bài
+### C. Nén thành file  `.zip` để nộp bài
 
 Lệnh này sẽ tự động chạy Batch Mode một lần để sinh kết quả mới nhất, sau đó nén toàn bộ source code và output vào file .zip.
 

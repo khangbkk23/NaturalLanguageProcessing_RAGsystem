@@ -1,0 +1,33 @@
+ROOT root V RIGHT
+ROOT root N RIGHT
+ROOT root NAME RIGHT
+
+V dobj N RIGHT
+V dobj NAME RIGHT
+V query Q RIGHT
+V loc PP RIGHT
+V yesno YN RIGHT
+V punc PUNC RIGHT
+
+N nmod Q RIGHT
+N nmod PP RIGHT
+N nmod NAME RIGHT
+N punc PUNC RIGHT
+
+NAME attr N RIGHT
+NAME query Q RIGHT
+NAME acl V RIGHT
+NAME yesno YN RIGHT
+NAME punc PUNC RIGHT
+
+PP pobj N RIGHT
+PP pobj NAME RIGHT
+
+NUM quan N LEFT
+NUM quan NAME LEFT
+
+N det DET LEFT
+N clf NAME LEFT
+N nmod PP LEFT
+
+NAME quan NUM LEFT
